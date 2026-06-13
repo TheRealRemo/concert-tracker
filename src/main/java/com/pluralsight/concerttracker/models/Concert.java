@@ -12,7 +12,43 @@ public class Concert {
     private double ticketPrice;
     private int ticketsSold;
 
+    @ManyToOne
+    private Artist artist;
 
+    @ManyToOne
+    private Venue venue;
+
+    @ManyToOne
+    private Promoter promoter;
+
+    public Concert() {
+    }
+
+    public Concert(int year, double ticketPrice, int ticketsSold,
+                   Artist artist, Venue venue, Promoter promoter) {
+        this.year = year;
+        this.ticketPrice = ticketPrice;
+        this.ticketsSold = ticketsSold;
+        this.artist = artist;
+        this.venue = venue;
+        this.promoter = promoter;
+    }
+
+    public Promoter getPromoter() {
+        return promoter;
+    }
+
+    public void setPromoter(Promoter promoter) {
+        this.promoter = promoter;
+    }
+
+    public Venue getVenue() {
+        return venue;
+    }
+
+    public void setVenue(Venue venue) {
+        this.venue = venue;
+    }
 
     public Artist getArtist() {
         return artist;
@@ -20,9 +56,6 @@ public class Concert {
 
     public void setArtist(Artist artist) {
         this.artist = artist;
-    }
-
-    public Concert() {
     }
 
 
