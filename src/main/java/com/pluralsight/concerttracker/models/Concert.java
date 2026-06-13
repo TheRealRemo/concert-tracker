@@ -1,28 +1,30 @@
 package com.pluralsight.concerttracker.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Concert {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private int year;
     private double ticketPrice;
     private int ticketsSold;
 
+
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
     public Concert() {
     }
 
-    public Concert(int year, double ticketPrice, int ticketsSold) {
-        this.year = year;
-        this.ticketPrice = ticketPrice;
-        this.ticketsSold = ticketsSold;
-    }
 
     public double getTicketPrice() {
         return ticketPrice;
