@@ -31,7 +31,6 @@ public class ConcertService {
         if (concertRepository.count() > 0) {
             return;
         }
-
         Artist ytg = artistRepository.save(new Artist("Young The Giant", "Alternative Rock"));
         Artist beabadoobee = artistRepository.save(new Artist("beabadoobee", "Alternative Rock"));
         Artist mj = artistRepository.save(new Artist("Michael Jackson", "Pop"));
