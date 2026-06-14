@@ -53,9 +53,9 @@ public class ConcertUserInterface implements CommandLineRunner {
 }
     public void listAllConcerts(){
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");
+        System.out.println("Concerts: ");
         for (Concert concert : concertService.allConcerts()) {
-            System.out.println("Concerts: ");
-            System.out.println("- " + concert.getId() + "." );
+            System.out.println("- " + concert.getArtist().getName() + " performing at " + concert.getVenue().getName());
         }
 
     }
