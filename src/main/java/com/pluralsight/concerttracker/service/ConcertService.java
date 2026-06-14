@@ -5,6 +5,7 @@ import com.pluralsight.concerttracker.data.ConcertRepository;
 import com.pluralsight.concerttracker.data.PromoterRepository;
 import com.pluralsight.concerttracker.data.VenueRepository;
 import com.pluralsight.concerttracker.models.Artist;
+import com.pluralsight.concerttracker.models.Concert;
 import com.pluralsight.concerttracker.models.Promoter;
 import com.pluralsight.concerttracker.models.Venue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +33,52 @@ public class ConcertService {
         if (concertRepository.count() > 0) {
             return;
         }
-        Artist ytg = artistRepository.save(new Artist("Young The Giant", "Alternative Rock"));
+        Artist youngTheGiant = artistRepository.save(new Artist("Young The Giant", "Alternative Rock"));
+
         Artist beabadoobee = artistRepository.save(new Artist("beabadoobee", "Alternative Rock"));
-        Artist mj = artistRepository.save(new Artist("Michael Jackson", "Pop"));
+
+        Artist michaelJackson = artistRepository.save(new Artist("Michael Jackson", "Pop"));
+
+        Artist malcomTodd = artistRepository.save(new Artist("Malcom Todd", "Indie Pop"));
+
+        Artist harryStyles = artistRepository.save(new Artist("Harry Styles", "Pop"));
+
         Venue metlifeStadium = venueRepository.save(new Venue("Metlife Stadium", "East Rutherford", 82500));
+
         Venue madisonSquareGarden = venueRepository.save(new Venue("Madison Square Garden", "New York", 19800));
+
         Venue wellsFargo = venueRepository.save(new Venue("Wells Fargo Center", "Philadelphia", 21000));
+
         Promoter liveNation = promoterRepository.save(new Promoter("Live Nation"));
+
         Promoter aeg = promoterRepository.save(new Promoter("AEG Presents"));
+
         Promoter c3 = promoterRepository.save(new Promoter("C3 Presents"));
 
+        Concert concert1 = concertRepository.save(new Concert(2026, 299.99, 17000, harryStyles, madisonSquareGarden, liveNation));
+
+        Concert concert2 = concertRepository.save(new Concert(2026, 89.99, 15000, beabadoobee, wellsFargo, aeg));
+
+        Concert concert3 = concertRepository.save(new Concert(2026, 125.00, 18000, youngTheGiant, madisonSquareGarden, c3));
+
+        Concert concert4 = concertRepository.save(new Concert(2026, 450.00, 80000, michaelJackson, metlifeStadium, liveNation));
+
+        Concert concert5 = concertRepository.save(new Concert(2026, 65.00, 12000, malcomTodd, wellsFargo, aeg));
+
+        Concert concert6 = concertRepository.save(new Concert(2026, 275.00, 19500, harryStyles, madisonSquareGarden, c3));
+
+        Concert concert7 = concertRepository.save(new Concert(2026, 110.00, 14000, youngTheGiant, wellsFargo, liveNation));
+
+        Concert concert8 = concertRepository.save(new Concert(2026, 350.00, 78000, michaelJackson, metlifeStadium, aeg));
+
+        Concert concert9 = concertRepository.save(new Concert(2026, 75.00, 13000, beabadoobee, madisonSquareGarden, c3));
+
+        Concert concert10 = concertRepository.save(new Concert(2026, 59.99, 10000, malcomTodd, wellsFargo, liveNation));
+
+        Concert concert11 = concertRepository.save(new Concert(2026, 225.00, 70000, harryStyles, metlifeStadium, aeg));
+
+        Concert concert12 = concertRepository.save(new Concert(2026, 95.00, 16000, youngTheGiant, madisonSquareGarden, liveNation));
+        ;
 
     }
 }
