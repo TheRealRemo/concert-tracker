@@ -11,6 +11,8 @@ import com.pluralsight.concerttracker.models.Venue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ConcertService {
 
@@ -26,8 +28,12 @@ public class ConcertService {
         this.promoterRepository = promoterRepository;
         this.venueRepository = venueRepository;
     }
-
-
+public long count(){
+        return concertRepository.count();
+}
+public List<Concert> allConcerts(){
+       return concertRepository.findAll();
+}
     public void seedIfEmpty() {
 
         if (concertRepository.count() > 0) {
