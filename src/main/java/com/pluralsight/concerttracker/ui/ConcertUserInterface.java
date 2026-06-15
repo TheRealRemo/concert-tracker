@@ -37,12 +37,12 @@ public class ConcertUserInterface implements CommandLineRunner {
                     "   | | |   / ___ ( (___|  _ (| ____| |        \n" +
                     "   |_|_|   \\_____|\\____)_| \\_)_____)_|        ");
             System.out.println("========================================================");
-            System.out.println("1) List all concerts");
+            System.out.println("1) Concerts");
             System.out.println("0) Quit");
             System.out.print("Choose: ");
 
             switch (scanner.nextInt()) {
-                case 1 -> listAllConcerts();
+                case 1 -> displayConcerts(scanner);
 
                 case 0 -> running = false;
                 default -> System.out.println("Unknown option.");
@@ -51,11 +51,40 @@ public class ConcertUserInterface implements CommandLineRunner {
 
 
 }
+    public void displayConcerts(Scanner scanner){
+       scanner.nextLine();
+        boolean validOption = false;
+
+        while (!validOption) {
+
+            System.out.println("\n1) List All Concerts");
+            System.out.println("0) Return To Main Menu");
+            System.out.print("Please enter here: ");
+
+            String input = scanner.nextLine();
+
+            switch (input) {
+
+                case "1" -> {
+                listAllConcerts();
+                    validOption = true;
+                }
+
+                case "0" -> {
+                    validOption = true;;
+                }
+
+
+                default -> System.out.println("Invalid option.");
+            }
+        }
+    }
     public void listAllConcerts(){
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");
         System.out.println("Concerts: ");
         for (Concert concert : concertService.allConcerts()) {
-            System.out.println("- " + concert.getArtist().getName() + " performing at " + concert.getVenue().getName());
+            System.out.println("-------------------------- \n" + "Concert " + concert.getId() + "\n" + "-------------------------- \n"
+                    + "Artist Name: " +concert.getArtist().getName() +  "\nVenue: " + concert.getVenue().getName()+ ", " + concert.getVenue().getCity())  ;
         }
 
     }
