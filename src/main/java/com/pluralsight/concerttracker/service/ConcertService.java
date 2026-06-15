@@ -8,6 +8,7 @@ import com.pluralsight.concerttracker.models.Artist;
 import com.pluralsight.concerttracker.models.Concert;
 import com.pluralsight.concerttracker.models.Promoter;
 import com.pluralsight.concerttracker.models.Venue;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +29,20 @@ public class ConcertService {
         this.promoterRepository = promoterRepository;
         this.venueRepository = venueRepository;
     }
-public long count(){
+
+    public long count() {
         return concertRepository.count();
-}
-public List<Concert> allConcerts(){
-       return concertRepository.findAll();
-}
-    public void seedIfEmpty() {
+    }
+
+    public List<Concert> allConcerts() {
+        return concertRepository.findAll();
+    }
+
+    public Concert concertsByID(long id) {
+        return concertRepository.findById(id).orElseThrow(() -> new NotFoundException("No Concert found with ID " + id));
+    }
+
+    public void concertSeedIfEmpty() {
 
         if (concertRepository.count() > 0) {
             return;

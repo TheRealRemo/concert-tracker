@@ -19,7 +19,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        concertService.seedIfEmpty();
+        concertService.concertSeedIfEmpty();
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
@@ -43,7 +43,6 @@ public class ConcertUserInterface implements CommandLineRunner {
 
             switch (scanner.nextInt()) {
                 case 1 -> displayConcerts(scanner);
-
                 case 0 -> running = false;
                 default -> System.out.println("Unknown option.");
             }
@@ -51,6 +50,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
 
 }
+//nested menu helper methods
     public void displayConcerts(Scanner scanner){
        scanner.nextLine();
         boolean validOption = false;
@@ -79,6 +79,13 @@ public class ConcertUserInterface implements CommandLineRunner {
             }
         }
     }
+//find helper methods
+public void findConcertByID(Scanner scanner){
+
+       ""
+}
+
+    //print helper methods
     public void listAllConcerts(){
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");
         System.out.println("Concerts: ");
@@ -86,6 +93,6 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("-------------------------- \n" + "Concert " + concert.getId() + "\n" + "-------------------------- \n"
                     + "Artist Name: " +concert.getArtist().getName() +  "\nVenue: " + concert.getVenue().getName()+ ", " + concert.getVenue().getCity())  ;
         }
-
     }
+
 }
