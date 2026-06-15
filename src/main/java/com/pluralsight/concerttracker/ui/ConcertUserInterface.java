@@ -2,6 +2,7 @@ package com.pluralsight.concerttracker.ui;
 
 import com.pluralsight.concerttracker.models.Concert;
 import com.pluralsight.concerttracker.service.ConcertService;
+import com.pluralsight.concerttracker.service.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -10,9 +11,10 @@ import java.util.Scanner;
 
 @Component
 public class ConcertUserInterface implements CommandLineRunner {
-   private final ConcertService concertService;
+    private final ConcertService concertService;
 
-   @Autowired
+
+    @Autowired
     public ConcertUserInterface(ConcertService concertService) {
         this.concertService = concertService;
     }
@@ -46,18 +48,20 @@ public class ConcertUserInterface implements CommandLineRunner {
                 case 0 -> running = false;
                 default -> System.out.println("Unknown option.");
             }
+        }
+
+
     }
 
-
-}
-//nested menu helper methods
-    public void displayConcerts(Scanner scanner){
-       scanner.nextLine();
+    //nested menu helper methods
+    public void displayConcerts(Scanner scanner) {
+        scanner.nextLine();
         boolean validOption = false;
 
         while (!validOption) {
 
             System.out.println("\n1) List All Concerts");
+            System.out.println("View One Concert By ID");
             System.out.println("0) Return To Main Menu");
             System.out.print("Please enter here: ");
 
@@ -66,12 +70,16 @@ public class ConcertUserInterface implements CommandLineRunner {
             switch (input) {
 
                 case "1" -> {
-                listAllConcerts();
+                    listAllConcerts();
+                    validOption = true;
+                }
+                case "2" -> {
+                    findConcertByID(scanner);
                     validOption = true;
                 }
 
                 case "0" -> {
-                    validOption = true;;
+                    validOption = true;
                 }
 
 
@@ -79,19 +87,30 @@ public class ConcertUserInterface implements CommandLineRunner {
             }
         }
     }
-//find helper methods
-public void findConcertByID(Scanner scanner){
 
-       ""
-}
+    //find helper methods
+    public void findConcertByID(Scanner scanner) {
+        listAllConcerts();
+        System.out.println("\n Please enter ID of Concert you would like to view:");
+        long id = scanner.nextLong();
+
+        Concert concert = concertService.concertsByID(id);
+
+        System.out.println("-------------------------- \n" + "Concert " + concert.getId()
+                + "\n-------------------------- \n" + "Artist Name: " + concert.getArtist().getName()
+                + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity()
+                + "\nPromoter: " + concert.getPromoter().getName() + "\nYear Held: " + concert.getYear()
+                + "\nPrice: " + concert.getTicketPrice() + "\nTickets Sold: " + concert.getTicketsSold());
+
+    }
 
     //print helper methods
-    public void listAllConcerts(){
+    public void listAllConcerts() {
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");
         System.out.println("Concerts: ");
         for (Concert concert : concertService.allConcerts()) {
             System.out.println("-------------------------- \n" + "Concert " + concert.getId() + "\n" + "-------------------------- \n"
-                    + "Artist Name: " +concert.getArtist().getName() +  "\nVenue: " + concert.getVenue().getName()+ ", " + concert.getVenue().getCity())  ;
+                    + "Artist Name: " + concert.getArtist().getName() + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity());
         }
     }
 
