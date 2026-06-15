@@ -61,7 +61,7 @@ public class ConcertUserInterface implements CommandLineRunner {
         while (!validOption) {
 
             System.out.println("\n1) List All Concerts");
-            System.out.println("View One Concert By ID");
+            System.out.println("2.) View One Concert By ID");
             System.out.println("0) Return To Main Menu");
             System.out.print("Please enter here: ");
 
@@ -91,16 +91,25 @@ public class ConcertUserInterface implements CommandLineRunner {
     //find helper methods
     public void findConcertByID(Scanner scanner) {
         listAllConcerts();
-        System.out.println("\n Please enter ID of Concert you would like to view:");
-        long id = scanner.nextLong();
+        boolean idNotFound = true;
 
-        Concert concert = concertService.concertsByID(id);
+        while (idNotFound) {
+            try {
+                System.out.print("\n Please enter ID of Concert you would like to view: ");
+                long id = scanner.nextLong();
 
-        System.out.println("-------------------------- \n" + "Concert " + concert.getId()
-                + "\n-------------------------- \n" + "Artist Name: " + concert.getArtist().getName()
-                + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity()
-                + "\nPromoter: " + concert.getPromoter().getName() + "\nYear Held: " + concert.getYear()
-                + "\nPrice: " + concert.getTicketPrice() + "\nTickets Sold: " + concert.getTicketsSold());
+                Concert concert = concertService.concertsByID(id);
+
+                System.out.println("-------------------------- \n" + "Concert " + concert.getId()
+                        + "\n-------------------------- \n" + "Artist Name: " + concert.getArtist().getName()
+                        + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity()
+                        + "\nPromoter: " + concert.getPromoter().getName() + "\nYear Held: " + concert.getYear()
+                        + "\nPrice: " + concert.getTicketPrice() + "\nTickets Sold: " + concert.getTicketsSold());
+                idNotFound = false;
+            } catch (NotFoundException nfe) {
+                System.out.println("\n" + nfe.getMessage());
+            }
+        }
 
     }
 
