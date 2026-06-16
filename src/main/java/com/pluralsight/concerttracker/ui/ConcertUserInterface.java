@@ -423,9 +423,31 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("Genre: " + artist.getGenre());
         }
     }
-public void findPromoterByName(){
 
-}
+    public void findPromoterByName(Scanner scanner) {
+
+        System.out.print("Enter promoter name: ");
+        String name = scanner.nextLine();
+
+        List<Promoter> promoters =
+                promoterService.findByName(name);
+
+        if (promoters.isEmpty()) {
+            System.out.println(
+                    "No promoters found with name: " + name);
+            return;
+        }
+
+        for (Promoter promoter : promoters) {
+
+            System.out.println("--------------------------");
+            System.out.println("Promoter " + promoter.getId());
+            System.out.println("--------------------------");
+            System.out.println("Promoter Name: "
+                    + promoter.getName());
+        }
+    }
+
     //add helper methods
     public void addNewConcert(Scanner scanner) {
         boolean validInput = false;
@@ -539,8 +561,7 @@ public void findPromoterByName(){
 
                 validInput = true;
 
-            }
-            catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -612,8 +633,7 @@ public void findPromoterByName(){
 
                 validInput = true;
 
-            }
-            catch (NotFoundException | IllegalArgumentException e) {
+            } catch (NotFoundException | IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -751,6 +771,9 @@ public void findPromoterByName(){
 
     }
 
+    public void deletePromoter(Scanner scanner){
+
+    }
     //print helper methods
     public void listAllConcerts() {
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");
