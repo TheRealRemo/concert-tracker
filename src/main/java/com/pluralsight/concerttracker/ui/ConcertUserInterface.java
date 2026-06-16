@@ -313,6 +313,27 @@ public class ConcertUserInterface implements CommandLineRunner {
     }
 
     public void findVenueByMinimumCapacity(Scanner scanner) {
+
+        System.out.print("Enter minimum capacity: ");
+        int capacity = scanner.nextInt();
+
+        List<Venue> venues =
+                venueService.findByMinimumCapacity(capacity);
+
+        if (venues.isEmpty()) {
+            System.out.println("No venues found with capacity of at least " + capacity);
+            return;
+        }
+
+        for (Venue venue : venues) {
+
+            System.out.println("--------------------------");
+            System.out.println("Venue " + venue.getId());
+            System.out.println("--------------------------");
+            System.out.println("Venue Name: " + venue.getName());
+            System.out.println("City: " + venue.getCity());
+            System.out.println("Capacity: " + venue.getCapacity());
+        }
     }
 
     public void findArtistByGenre(Scanner scanner) {
@@ -453,9 +474,10 @@ public class ConcertUserInterface implements CommandLineRunner {
             }
         }
     }
-public void updateArtistGenre(Scanner scanner){
 
-}
+    public void updateArtistGenre(Scanner scanner) {
+
+    }
 
     public void updateTicketPrice(Scanner scanner) {
         listAllConcerts();
@@ -585,9 +607,10 @@ public void updateArtistGenre(Scanner scanner){
         }
     }
 
-    public void deleteArtist(Scanner scanner){
+    public void deleteArtist(Scanner scanner) {
 
     }
+
     //print helper methods
     public void listAllConcerts() {
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");
