@@ -39,6 +39,10 @@ public class VenueService {
         return venueRepository.findByName(name);
     }
 
+    public List<Venue> findByMinimumCapacity(int capacity) {
+        return venueRepository.findByCapacityGreaterThanEqual(capacity);
+    }
+
     ///can be used to add and update
     public Venue addVenue(Venue venue) {
 
