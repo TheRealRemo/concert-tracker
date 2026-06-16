@@ -34,6 +34,11 @@ public class VenueService {
     public List<Venue> findVenueByCity(String city) {
         return venueRepository.findByCity(city);
     }
+
+    public List<Venue> findVenueByName(String name) {
+        return venueRepository.findByName(name);
+    }
+
     public Venue addVenue(Venue venue) {
 
         if (venue.getCapacity() < 0) {

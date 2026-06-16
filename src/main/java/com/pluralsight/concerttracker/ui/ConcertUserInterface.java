@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Component
@@ -209,7 +210,24 @@ public class ConcertUserInterface implements CommandLineRunner {
     }
 
     public void findVenueByCity(Scanner scanner) {
+        System.out.print("Enter city: ");
+        String city = scanner.nextLine();
 
+        List<Venue> venues = venueService.findVenueByCity(city);
+
+        if (venues.isEmpty()) {
+            System.out.println("No venues found in " + city);
+            return;
+        }
+
+        for (Venue venue : venues) {
+            System.out.println("--------------------------");
+            System.out.println("Venue " + venue.getId());
+            System.out.println("--------------------------");
+            System.out.println("Venue Name: " + venue.getName());
+            System.out.println("City: " + venue.getCity());
+            System.out.println("Capacity: " + venue.getCapacity());
+        }
     }
 
     public void findVenueByName(Scanner scanner) {
