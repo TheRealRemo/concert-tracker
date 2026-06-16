@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public class ArtistService {
 
-public final ArtistRepository artistRepository;
+    public final ArtistRepository artistRepository;
 
-@Autowired
+    @Autowired
     public ArtistService(ArtistRepository artistRepository) {
         this.artistRepository = artistRepository;
     }
@@ -21,7 +21,7 @@ public final ArtistRepository artistRepository;
         return artistRepository.count();
     }
 
-    public List<Artist> allArtists(){
+    public List<Artist> allArtists() {
         return artistRepository.findAll();
     }
 
@@ -32,5 +32,9 @@ public final ArtistRepository artistRepository;
 
     public Artist addArtist(Artist artist) {
         return artistRepository.save(artist);
+    }
+
+    public List<Artist> findByGenre(String genre) {
+        return artistRepository.findByGenre(genre);
     }
 }
