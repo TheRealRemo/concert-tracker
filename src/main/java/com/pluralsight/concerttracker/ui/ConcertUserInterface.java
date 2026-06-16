@@ -801,8 +801,39 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
-    public void deletePromoter(Scanner scanner){
+    public void deletePromoter(Scanner scanner) {
 
+        boolean validInput = false;
+
+        while (!validInput) {
+
+            try {
+
+                listAllPromoters();
+
+                System.out.print("\nEnter Promoter ID to delete (0 to cancel): ");
+                long id = scanner.nextLong();
+
+                if (id == 0) {
+                    return;
+                }
+
+                Promoter promoter = promoterService.getPromoterById(id);
+
+                System.out.println("Deleting promoter: "
+                        + promoter.getName());
+
+                promoterService.removePromoter(promoter);
+
+                System.out.println("Promoter deleted successfully!");
+
+                validInput = true;
+
+            }
+            catch (NotFoundException | IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
     //print helper methods
     public void listAllConcerts() {
