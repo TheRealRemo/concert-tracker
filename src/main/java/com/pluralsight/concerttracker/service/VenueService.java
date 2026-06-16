@@ -47,4 +47,7 @@ public class VenueService {
 
         return venueRepository.save(venue);
     }
+    public void removeVenue(Venue venue) {
+        venueRepository.delete(venue);
+    }
 }
