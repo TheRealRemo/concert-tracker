@@ -519,6 +519,10 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+    public void addPromoter(Scanner scanner){
+
+    }
+
     //update helper methods
     public void updateTicketsSold(Scanner scanner) {
         listAllConcerts();

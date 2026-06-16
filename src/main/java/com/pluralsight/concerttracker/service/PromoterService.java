@@ -29,4 +29,7 @@ public class PromoterService {
                 .orElseThrow(() ->
                         new NotFoundException("No Promoter found with ID " + id));
     }
+    public void addPromoter(Promoter promoter) {
+        promoterRepository.save(promoter);
+    }
 }
