@@ -215,6 +215,38 @@ public class ConcertUserInterface implements CommandLineRunner {
 
     public void updateTicketPrice(Scanner scanner) {
         listAllConcerts();
+
+        boolean validInput = false;
+
+        while (!validInput) {
+
+            try {
+
+                listAllConcerts();
+
+                System.out.print("\nEnter Concert ID: ");
+                long id = scanner.nextLong();
+
+                Concert concert = concertService.concertByID(id);
+
+                System.out.println("Current ticket price: $"
+                        + concert.getTicketPrice());
+
+                System.out.print("Enter updated ticket price: ");
+                double ticketPrice = scanner.nextDouble();
+
+                concert.setTicketPrice(ticketPrice);
+
+                concertService.updateConcert(concert);
+
+                System.out.println("Ticket price updated!");
+                validInput = true;
+
+            }
+            catch (NotFoundException | IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     //print helper methods
