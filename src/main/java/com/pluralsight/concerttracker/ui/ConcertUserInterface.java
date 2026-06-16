@@ -91,6 +91,14 @@ public class ConcertUserInterface implements CommandLineRunner {
                     addNewConcert(scanner);
                     validOption = true;
                 }
+                case "4" -> {
+                    updateTicketPrice(scanner);
+                    validOption = true;
+                }
+                case "5" -> {
+                    updateTicketsSold(scanner);
+                    validOption = true;
+                }
 
                 case "0" -> {
                     validOption = true;
@@ -167,13 +175,22 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+    //update helper methods
+    public void updateTicketsSold(Scanner scanner){
+        listAllConcerts();
+    }
+    public void updateTicketPrice(Scanner scanner){
+listAllConcerts();
+    }
+
     //print helper methods
     public void listAllConcerts() {
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");
         System.out.println("Concerts: ");
         for (Concert concert : concertService.allConcerts()) {
             System.out.println("-------------------------- \n" + "Concert " + concert.getId() + "\n" + "-------------------------- \n"
-                    + "Artist Name: " + concert.getArtist().getName() + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity());
+                    + "Artist Name: " + concert.getArtist().getName() + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity()
+                    + "\nTicket Price: $" + concert.getTicketPrice() + "\nTickets Sold: " + concert.getTicketsSold());
         }
 
 
