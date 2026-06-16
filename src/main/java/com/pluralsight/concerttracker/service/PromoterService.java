@@ -29,6 +29,9 @@ public class PromoterService {
                 .orElseThrow(() ->
                         new NotFoundException("No Promoter found with ID " + id));
     }
+    public List<Promoter> findByName(String name) {
+        return promoterRepository.findByName(name);
+    }
     public void addPromoter(Promoter promoter) {
         promoterRepository.save(promoter);
     }
