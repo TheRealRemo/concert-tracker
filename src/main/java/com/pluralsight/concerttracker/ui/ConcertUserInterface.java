@@ -48,12 +48,15 @@ public class ConcertUserInterface implements CommandLineRunner {
                     "   | | |   / ___ ( (___|  _ (| ____| |        \n" +
                     "   |_|_|   \\_____|\\____)_| \\_)_____)_|        ");
             System.out.println("========================================================");
-            System.out.println("1) Concerts");
+            System.out.println("1.) Concerts");
+            System.out.println("2.) Search Concerts");
+            System.out.println("3.) Artists");
             System.out.println("0) Quit");
             System.out.print("Choose: ");
 
             switch (scanner.nextInt()) {
                 case 1 -> displayConcerts(scanner);
+                case 4 -> displayVenues(scanner);
                 case 0 -> running = false;
                 default -> System.out.println("Unknown option.");
             }
@@ -84,33 +87,96 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 case "1" -> {
                     listAllConcerts();
-                    validOption = true;
+
                 }
                 case "2" -> {
                     findConcertByID(scanner);
-                    validOption = true;
+
                 }
                 case "3" -> {
                     addNewConcert(scanner);
-                    validOption = true;
+
                 }
                 case "4" -> {
                     updateTicketPrice(scanner);
-                    validOption = true;
+
                 }
                 case "5" -> {
                     updateTicketsSold(scanner);
-                    validOption = true;
+
                 }
                 case "6" -> {
                     deleteConcert(scanner);
-                    validOption = true;
+
                 }
 
                 case "0" -> {
                     validOption = true;
                 }
 
+
+                default -> System.out.println("Invalid option.");
+            }
+        }
+    }
+
+    public void displayVenues(Scanner scanner) {
+        scanner.nextLine();
+        boolean validOption = false;
+
+        while (!validOption) {
+
+            System.out.println("\n1) List All Venues");
+            System.out.println("2) Add Venue");
+            System.out.println("3) Find Venue By City");
+            System.out.println("4) Find Venue By Name");
+            System.out.println("5) Find Venue By Minimum Capacity");
+            System.out.println("6) Update Venue Capacity");
+            System.out.println("7) Delete Venue");
+            System.out.println("0) Return To Main Menu");
+            System.out.print("Please enter here: ");
+
+            String input = scanner.nextLine();
+
+            switch (input) {
+
+                case "1" -> {
+                    listAllVenues();
+                }
+
+                case "2" -> {
+                    addNewVenue(scanner);
+
+                }
+
+                case "3" -> {
+                    findVenueByCity(scanner);
+
+                }
+
+                case "4" -> {
+                    findVenueByName(scanner);
+
+                }
+
+                case "5" -> {
+                    findVenueByMinimumCapacity(scanner);
+
+                }
+
+                case "6" -> {
+                    updateVenueCapacity(scanner);
+
+                }
+
+                case "7" -> {
+                    deleteVenue(scanner);
+
+                }
+
+                case "0" -> {
+                    validOption = true;
+                }
 
                 default -> System.out.println("Invalid option.");
             }
@@ -140,6 +206,17 @@ public class ConcertUserInterface implements CommandLineRunner {
             }
         }
 
+    }
+
+    public void findVenueByCity(Scanner scanner) {
+
+    }
+
+    public void findVenueByName(Scanner scanner) {
+
+    }
+
+    public void findVenueByMinimumCapacity(Scanner scanner) {
     }
 
     //add helper methods
@@ -182,6 +259,34 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+    public void addNewVenue(Scanner scanner) {
+
+        boolean validInput = false;
+
+        while (!validInput) {
+
+            try {
+
+                System.out.print("Venue Name: ");
+                String name = scanner.nextLine();
+
+                System.out.print("City: ");
+                String city = scanner.nextLine();
+
+                System.out.print("Capacity: ");
+                int capacity = Integer.parseInt(scanner.nextLine());
+
+                venueService.addVenue(new Venue(name, city, capacity));
+
+                System.out.println("Venue added!");
+                validInput = true;
+
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     //update helper methods
     public void updateTicketsSold(Scanner scanner) {
         listAllConcerts();
@@ -212,8 +317,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 System.out.println("Tickets sold updated!");
                 validInput = true;
 
-            }
-            catch (NotFoundException | IllegalArgumentException e) {
+            } catch (NotFoundException | IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -249,8 +353,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 System.out.println("Ticket price updated!");
                 validInput = true;
 
-            }
-            catch (NotFoundException | IllegalArgumentException e) {
+            } catch (NotFoundException | IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -258,32 +361,32 @@ public class ConcertUserInterface implements CommandLineRunner {
 
     //delete helper methods
 
-public void deleteConcert(Scanner scanner){
-    boolean validInput = false;
+    public void deleteConcert(Scanner scanner) {
+        boolean validInput = false;
 
-    while (!validInput) {
+        while (!validInput) {
 
-        try {
+            try {
 
-            listAllConcerts();
+                listAllConcerts();
 
-            System.out.print("\nEnter Concert ID to delete: ");
-            long id = scanner.nextLong();
+                System.out.print("\nEnter Concert ID to delete: ");
+                long id = scanner.nextLong();
 
-            Concert concert = concertService.concertByID(id);
+                Concert concert = concertService.concertByID(id);
 
-            concertService.removeConcert(concert);
+                concertService.removeConcert(concert);
 
-            System.out.println("Concert " + concert.getId() + " deleted successfully!");
+                System.out.println("Concert " + concert.getId() + " deleted successfully!");
 
-            validInput = true;
+                validInput = true;
 
-        }
-        catch (NotFoundException e) {
-            System.out.println(e.getMessage());
+            } catch (NotFoundException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
-}
+
     //print helper methods
     public void listAllConcerts() {
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");

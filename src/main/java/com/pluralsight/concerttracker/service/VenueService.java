@@ -31,4 +31,15 @@ public class VenueService {
                 .orElseThrow(() ->
                         new NotFoundException("No Venue found with ID " + id));
     }
+    public List<Venue> findVenueByCity(String city) {
+        return venueRepository.findByCity(city);
+    }
+    public Venue addVenue(Venue venue) {
+
+        if (venue.getCapacity() < 0) {
+            throw new IllegalArgumentException("Capacity cannot be less than 0");
+        }
+
+        return venueRepository.save(venue);
+    }
 }
