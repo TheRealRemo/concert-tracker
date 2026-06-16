@@ -347,7 +347,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 concert.setTicketsSold(ticketsSold);
 
-                concertService.updateConcert(concert);
+                concertService.addConcert(concert);
 
                 System.out.println("Tickets sold updated!");
                 validInput = true;
@@ -383,7 +383,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 concert.setTicketPrice(ticketPrice);
 
-                concertService.updateConcert(concert);
+                concertService.addConcert(concert);
 
                 System.out.println("Ticket price updated!");
                 validInput = true;
@@ -394,6 +394,45 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+    public void updateVenueCapacity(Scanner scanner){
+        boolean validInput = false;
+
+        while (!validInput) {
+
+            try {
+
+                listAllVenues();
+
+                System.out.print("\nEnter Venue ID: ");
+                long id = scanner.nextLong();
+
+                Venue venue = venueService.getVenueById(id);
+
+                System.out.println("Current capacity: "
+                        + venue.getCapacity());
+
+                System.out.print("Enter updated capacity: ");
+                int capacity = scanner.nextInt();
+
+                venue.setCapacity(capacity);
+
+                venueService.addVenue(venue);
+
+                System.out.println("Venue capacity updated!");
+
+                validInput = true;
+
+            }
+            catch (NotFoundException | IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
+
+    public void deleteVenue(Scanner scanner){
+
+    }
     //delete helper methods
 
     public void deleteConcert(Scanner scanner) {
