@@ -477,6 +477,39 @@ public class ConcertUserInterface implements CommandLineRunner {
 
     public void updateArtistGenre(Scanner scanner) {
 
+        boolean validInput = false;
+
+        while (!validInput) {
+
+            try {
+
+                listAllArtists();
+
+                System.out.print("\nEnter Artist ID: ");
+                long id = scanner.nextLong();
+                scanner.nextLine();
+
+                Artist artist = artistService.getArtistById(id);
+
+                System.out.println("Current Genre: "
+                        + artist.getGenre());
+
+                System.out.print("Enter updated genre: ");
+                String genre = scanner.nextLine();
+
+                artist.setGenre(genre);
+
+                artistService.addArtist(artist);
+
+                System.out.println("Artist genre updated!");
+
+                validInput = true;
+
+            }
+            catch (NotFoundException | IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public void updateTicketPrice(Scanner scanner) {
