@@ -72,6 +72,9 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("\n1) List All Concerts");
             System.out.println("2.) View One Concert By ID");
             System.out.println("3.) Add a Concert");
+            System.out.println("4.) Update Ticket Price");
+            System.out.println("5.) Update Tickets Sold");
+            System.out.println("6.) Delete a Concert");
             System.out.println("0) Return To Main Menu");
             System.out.print("Please enter here: ");
 
@@ -97,6 +100,10 @@ public class ConcertUserInterface implements CommandLineRunner {
                 }
                 case "5" -> {
                     updateTicketsSold(scanner);
+                    validOption = true;
+                }
+                case "6" -> {
+                    deleteConcert(scanner);
                     validOption = true;
                 }
 
@@ -249,6 +256,34 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+    //delete helper methods
+
+public void deleteConcert(Scanner scanner){
+    boolean validInput = false;
+
+    while (!validInput) {
+
+        try {
+
+            listAllConcerts();
+
+            System.out.print("\nEnter Concert ID to delete: ");
+            long id = scanner.nextLong();
+
+            Concert concert = concertService.concertByID(id);
+
+            concertService.removeConcert(concert);
+
+            System.out.println("Concert " + concert.getId() + " deleted successfully!");
+
+            validInput = true;
+
+        }
+        catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
     //print helper methods
     public void listAllConcerts() {
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");
