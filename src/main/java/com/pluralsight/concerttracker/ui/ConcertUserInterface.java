@@ -129,8 +129,33 @@ public class ConcertUserInterface implements CommandLineRunner {
     }
 
     //add helper methods
-    public void addNewConcert(Scanner scanner){
+    public void addNewConcert(Scanner scanner) {
+        listAllArtists();
+        System.out.print("Choose Artist ID: ");
+        long artistID = scanner.nextLong();
+        Artist artist = artistService.getArtistById(artistID);
 
+        listAllVenues();
+        System.out.print("Choose Venue ID: ");
+        long venueID = scanner.nextLong();
+        Venue venue = venueService.getVenueById(venueID);
+
+        listAllPromoters();
+        System.out.print("Choose Promoter ID: ");
+        long promoterID = scanner.nextLong();
+        Promoter promoter = promoterService.getPromoterById(promoterID);
+
+        System.out.print("Year: ");
+        int year = scanner.nextInt();
+
+        System.out.print("Ticket Price: ");
+        double ticketPrice = scanner.nextDouble();
+
+        System.out.print("Tickets Sold: ");
+        int ticketsSold = scanner.nextInt();
+
+        concertService.addConcert(new Concert(year, ticketPrice, ticketsSold, artist, venue, promoter));
+        System.out.println("New Concert Added!");
     }
 
     //print helper methods
@@ -144,6 +169,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
 
     }
+
     public void listAllArtists() {
         System.out.println("There are currently " + artistService.count() + " Artists.");
         System.out.println("Artists: ");
@@ -156,6 +182,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                     "\nGenre: " + artist.getGenre());
         }
     }
+
     public void listAllVenues() {
         System.out.println("There are currently " + venueService.count() + " Venues.");
         System.out.println("Venues: ");
@@ -169,6 +196,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                     "\nCapacity: " + venue.getCapacity());
         }
     }
+
     public void listAllPromoters() {
         System.out.println("There are currently " + promoterService.count() + " Promoters.");
         System.out.println("Promoters: ");
