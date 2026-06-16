@@ -382,6 +382,33 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+    public void addArtist(Scanner scanner) {
+
+        boolean validInput = false;
+
+        while (!validInput) {
+
+            try {
+
+                System.out.print("Artist Name: ");
+                String name = scanner.nextLine();
+
+                System.out.print("Genre: ");
+                String genre = scanner.nextLine();
+
+                artistService.addArtist(
+                        new Artist(name, genre));
+
+                System.out.println("Artist added!");
+
+                validInput = true;
+
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
     //update helper methods
     public void updateTicketsSold(Scanner scanner) {
         listAllConcerts();
@@ -518,6 +545,7 @@ public class ConcertUserInterface implements CommandLineRunner {
             }
         }
     }
+
     public void deleteVenue(Scanner scanner){
         boolean validInput = false;
 
