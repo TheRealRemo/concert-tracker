@@ -244,6 +244,7 @@ public class ConcertUserInterface implements CommandLineRunner {
             }
         }
     }
+
     //find helper methods
     public void findConcertByID(Scanner scanner) {
         listAllConcerts();
@@ -312,6 +313,14 @@ public class ConcertUserInterface implements CommandLineRunner {
     }
 
     public void findVenueByMinimumCapacity(Scanner scanner) {
+    }
+
+    public void findArtistByGenre(Scanner scanner) {
+
+    }
+
+    public void findArtistByName(Scanner scanner) {
+
     }
 
     //add helper methods
@@ -403,12 +412,12 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 validInput = true;
 
-            }
-            catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
+
     //update helper methods
     public void updateTicketsSold(Scanner scanner) {
         listAllConcerts();
@@ -444,7 +453,9 @@ public class ConcertUserInterface implements CommandLineRunner {
             }
         }
     }
+public void updateArtistGenre(Scanner scanner){
 
+}
 
     public void updateTicketPrice(Scanner scanner) {
         listAllConcerts();
@@ -481,7 +492,7 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
-    public void updateVenueCapacity(Scanner scanner){
+    public void updateVenueCapacity(Scanner scanner) {
         boolean validInput = false;
 
         while (!validInput) {
@@ -509,8 +520,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 validInput = true;
 
-            }
-            catch (NotFoundException | IllegalArgumentException e) {
+            } catch (NotFoundException | IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -546,7 +556,7 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
-    public void deleteVenue(Scanner scanner){
+    public void deleteVenue(Scanner scanner) {
         boolean validInput = false;
 
         while (!validInput) {
@@ -569,11 +579,14 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 validInput = true;
 
-            }
-            catch (NotFoundException e) {
+            } catch (NotFoundException e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public void deleteArtist(Scanner scanner){
+
     }
     //print helper methods
     public void listAllConcerts() {

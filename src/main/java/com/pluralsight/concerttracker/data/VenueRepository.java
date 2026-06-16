@@ -10,4 +10,6 @@ public interface VenueRepository extends JpaRepository <Venue, Long> {
 
     List<Venue> findByName(String name);
 
+    List<Venue> findByCapacityGreaterThanEqual(int capacity);
+
 }
