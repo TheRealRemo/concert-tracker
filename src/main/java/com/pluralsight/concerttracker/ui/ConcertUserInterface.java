@@ -430,9 +430,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
     }
 
-    public void deleteVenue(Scanner scanner){
 
-    }
     //delete helper methods
 
     public void deleteConcert(Scanner scanner) {
@@ -460,7 +458,35 @@ public class ConcertUserInterface implements CommandLineRunner {
             }
         }
     }
+    public void deleteVenue(Scanner scanner){
+        boolean validInput = false;
 
+        while (!validInput) {
+
+            try {
+
+                listAllVenues();
+
+                System.out.print("\nEnter Venue ID to delete: ");
+                long id = scanner.nextLong();
+
+                Venue venue = venueService.getVenueById(id);
+
+                System.out.println("Deleting venue: "
+                        + venue.getName());
+
+                venueService.removeVenue(venue);
+
+                System.out.println("Venue deleted successfully!");
+
+                validInput = true;
+
+            }
+            catch (NotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
     //print helper methods
     public void listAllConcerts() {
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");
