@@ -16,6 +16,10 @@ public class VenueService {
 
     }
 
+    public long count() {
+        return venueRepository.count();
+    }
+
     public List<Venue> allVenues() {
         return venueRepository.findAll();
     }
