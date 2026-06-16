@@ -519,8 +519,29 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
-    public void addPromoter(Scanner scanner){
+    public void addPromoter(Scanner scanner) {
 
+        boolean validInput = false;
+
+        while (!validInput) {
+
+            try {
+
+                System.out.print("Promoter Name: ");
+                String name = scanner.nextLine();
+
+                promoterService.addPromoter(
+                        new Promoter(name));
+
+                System.out.println("Promoter added!");
+
+                validInput = true;
+
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     //update helper methods
