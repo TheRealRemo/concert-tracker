@@ -245,6 +245,52 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+    public void displayPromoters(Scanner scanner) {
+        scanner.nextLine();
+        boolean validOption = false;
+
+        while (!validOption) {
+
+            System.out.println("\n1) List All Promoters");
+            System.out.println("2) Add Promoter");
+            System.out.println("3) Find Promoter By Name");
+            System.out.println("4) Delete Promoter");
+            System.out.println("0) Return To Main Menu");
+            System.out.print("Please enter here: ");
+
+            String input = scanner.nextLine();
+
+            switch (input) {
+
+                case "1" -> {
+                    listAllPromoters();
+                    validOption = true;
+                }
+
+                case "2" -> {
+                    addPromoter(scanner);
+                    validOption = true;
+                }
+
+                case "3" -> {
+                    findPromoterByName(scanner);
+                    validOption = true;
+                }
+
+                case "4" -> {
+                    deletePromoter(scanner);
+                    validOption = true;
+                }
+
+                case "0" -> {
+                    validOption = true;
+                }
+
+                default -> System.out.println("Invalid option.");
+            }
+        }
+    }
+
     //find helper methods
     public void findConcertByID(Scanner scanner) {
         listAllConcerts();
