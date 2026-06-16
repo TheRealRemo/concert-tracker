@@ -359,6 +359,23 @@ public class ConcertUserInterface implements CommandLineRunner {
 
     public void findArtistByName(Scanner scanner) {
 
+        System.out.print("Enter artist name: ");
+        String name = scanner.nextLine();
+
+        List<Artist> artists = artistService.findByName(name);
+
+        if (artists.isEmpty()) {
+            System.out.println("No artists found with name: " + name);
+            return;
+        }
+
+        for (Artist artist : artists) {
+            System.out.println("--------------------------");
+            System.out.println("Artist " + artist.getId());
+            System.out.println("--------------------------");
+            System.out.println("Artist Name: " + artist.getName());
+            System.out.println("Genre: " + artist.getGenre());
+        }
     }
 
     //add helper methods
