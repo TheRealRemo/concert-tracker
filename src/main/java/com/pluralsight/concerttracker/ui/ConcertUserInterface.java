@@ -5,6 +5,7 @@ import com.pluralsight.concerttracker.models.Concert;
 import com.pluralsight.concerttracker.models.Promoter;
 import com.pluralsight.concerttracker.models.Venue;
 import com.pluralsight.concerttracker.service.*;
+import com.pluralsight.concerttracker.service.IllegalArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -25,8 +26,6 @@ public class ConcertUserInterface implements CommandLineRunner {
         this.venueService = venueService;
         this.promoterService = promoterService;
     }
-
-    @Autowired
 
 
     @Override
@@ -130,32 +129,42 @@ public class ConcertUserInterface implements CommandLineRunner {
 
     //add helper methods
     public void addNewConcert(Scanner scanner) {
-        listAllArtists();
-        System.out.print("Choose Artist ID: ");
-        long artistID = scanner.nextLong();
-        Artist artist = artistService.getArtistById(artistID);
+        boolean validInput = false;
 
-        listAllVenues();
-        System.out.print("Choose Venue ID: ");
-        long venueID = scanner.nextLong();
-        Venue venue = venueService.getVenueById(venueID);
+        while (!validInput) {
+            try {
+                listAllArtists();
+                System.out.print("Choose Artist ID: ");
+                long artistID = scanner.nextLong();
+                Artist artist = artistService.getArtistById(artistID);
 
-        listAllPromoters();
-        System.out.print("Choose Promoter ID: ");
-        long promoterID = scanner.nextLong();
-        Promoter promoter = promoterService.getPromoterById(promoterID);
+                listAllVenues();
+                System.out.print("Choose Venue ID: ");
+                long venueID = scanner.nextLong();
+                Venue venue = venueService.getVenueById(venueID);
 
-        System.out.print("Year: ");
-        int year = scanner.nextInt();
+                listAllPromoters();
+                System.out.print("Choose Promoter ID: ");
+                long promoterID = scanner.nextLong();
+                Promoter promoter = promoterService.getPromoterById(promoterID);
 
-        System.out.print("Ticket Price: ");
-        double ticketPrice = scanner.nextDouble();
+                System.out.print("Year: ");
+                int year = scanner.nextInt();
 
-        System.out.print("Tickets Sold: ");
-        int ticketsSold = scanner.nextInt();
+                System.out.print("Ticket Price: ");
+                double ticketPrice = scanner.nextDouble();
 
-        concertService.addConcert(new Concert(year, ticketPrice, ticketsSold, artist, venue, promoter));
-        System.out.println("New Concert Added!");
+                System.out.print("Tickets Sold: ");
+                int ticketsSold = scanner.nextInt();
+
+
+                concertService.addConcert(new Concert(year, ticketPrice, ticketsSold, artist, venue, promoter));
+                System.out.println("New Concert Added!");
+                validInput = true;
+            } catch (NotFoundException | IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     //print helper methods
