@@ -4,6 +4,7 @@ import com.pluralsight.concerttracker.data.PromoterRepository;
 import com.pluralsight.concerttracker.models.Artist;
 import com.pluralsight.concerttracker.models.Promoter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +27,21 @@ public class PromoterService {
 
     public Promoter getPromoterById(long id) {
         return promoterRepository.findById(id)
-                .orElseThrow(() ->
-                        new NotFoundException("No Promoter found with ID " + id));
+                .orElseThrow(() -> new NotFoundException("No Promoter found with ID " + id));
     }
     public List<Promoter> findByName(String name) {
         return promoterRepository.findByName(name);
     }
     public void addPromoter(Promoter promoter) {
         promoterRepository.save(promoter);
+    }
+    public void removePromoter(Promoter promoter) {
+
+        try {
+            promoterRepository.delete(promoter);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("Cannot delete promoter because concerts still reference it.");
+        }
     }
 }

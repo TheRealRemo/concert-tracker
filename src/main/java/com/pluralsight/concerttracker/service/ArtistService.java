@@ -3,6 +3,7 @@ package com.pluralsight.concerttracker.service;
 import com.pluralsight.concerttracker.data.ArtistRepository;
 import com.pluralsight.concerttracker.models.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +35,13 @@ public class ArtistService {
         return artistRepository.save(artist);
     }
     public void removeArtist(Artist artist) {
-        artistRepository.delete(artist);
+
+        try {
+            artistRepository.delete(artist);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("Cannot delete artist because concerts still reference it.");
+        }
     }
     public List<Artist> findByGenre(String genre) {
         return artistRepository.findByGenre(genre);

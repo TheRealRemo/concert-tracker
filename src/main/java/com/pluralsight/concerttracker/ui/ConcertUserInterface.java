@@ -743,8 +743,12 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 listAllVenues();
 
-                System.out.print("\nEnter Venue ID to delete: ");
+                System.out.print("\nEnter Venue ID to delete (0 to cancel): ");
                 long id = scanner.nextLong();
+
+                if (id == 0) {
+                    return;
+                }
 
                 Venue venue = venueService.getVenueById(id);
 
@@ -757,7 +761,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 validInput = true;
 
-            } catch (NotFoundException e) {
+            } catch (NotFoundException | IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -773,8 +777,12 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 listAllArtists();
 
-                System.out.print("\nEnter Artist ID to delete: ");
+                System.out.print("\nEnter Artist ID to delete (0 to cancel): ");
                 long id = scanner.nextLong();
+
+                if (id == 0) {
+                    return;
+                }
 
                 Artist artist = artistService.getArtistById(id);
 
@@ -787,7 +795,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 validInput = true;
 
             }
-            catch (NotFoundException e) {
+            catch (NotFoundException | IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }

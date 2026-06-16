@@ -3,6 +3,7 @@ package com.pluralsight.concerttracker.service;
 import com.pluralsight.concerttracker.data.VenueRepository;
 import com.pluralsight.concerttracker.models.Venue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,6 +54,12 @@ public class VenueService {
         return venueRepository.save(venue);
     }
     public void removeVenue(Venue venue) {
-        venueRepository.delete(venue);
+
+        try {
+            venueRepository.delete(venue);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("Cannot delete venue because concerts still reference it.");
+        }
     }
 }
