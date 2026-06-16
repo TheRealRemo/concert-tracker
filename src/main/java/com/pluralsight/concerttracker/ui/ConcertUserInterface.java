@@ -584,8 +584,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 Concert concert = concertService.concertByID(id);
 
-                System.out.println("Current tickets sold: "
-                        + concert.getTicketsSold());
+                System.out.println("Current tickets sold: " + concert.getTicketsSold());
 
                 System.out.print("Enter updated number of tickets sold: ");
                 int ticketsSold = scanner.nextInt();
@@ -619,8 +618,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 Artist artist = artistService.getArtistById(id);
 
-                System.out.println("Current Genre: "
-                        + artist.getGenre());
+                System.out.println("Current Genre: " + artist.getGenre());
 
                 System.out.print("Enter updated genre: ");
                 String genre = scanner.nextLine();
@@ -655,8 +653,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 Concert concert = concertService.concertByID(id);
 
-                System.out.println("Current ticket price: $"
-                        + concert.getTicketPrice());
+                System.out.println("Current ticket price: $" + concert.getTicketPrice());
 
                 System.out.print("Enter updated ticket price: ");
                 double ticketPrice = scanner.nextDouble();
@@ -688,8 +685,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 Venue venue = venueService.getVenueById(id);
 
-                System.out.println("Current capacity: "
-                        + venue.getCapacity());
+                System.out.println("Current capacity: " + venue.getCapacity());
 
                 System.out.print("Enter updated capacity: ");
                 int capacity = scanner.nextInt();
@@ -769,6 +765,32 @@ public class ConcertUserInterface implements CommandLineRunner {
 
     public void deleteArtist(Scanner scanner) {
 
+        boolean validInput = false;
+
+        while (!validInput) {
+
+            try {
+
+                listAllArtists();
+
+                System.out.print("\nEnter Artist ID to delete: ");
+                long id = scanner.nextLong();
+
+                Artist artist = artistService.getArtistById(id);
+
+                System.out.println("Deleting artist: " + artist.getName());
+
+                artistService.removeArtist(artist);
+
+                System.out.println("Artist deleted successfully!");
+
+                validInput = true;
+
+            }
+            catch (NotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public void deletePromoter(Scanner scanner){

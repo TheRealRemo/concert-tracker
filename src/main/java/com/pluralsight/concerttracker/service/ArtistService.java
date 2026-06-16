@@ -33,7 +33,9 @@ public class ArtistService {
     public Artist addArtist(Artist artist) {
         return artistRepository.save(artist);
     }
-
+    public void removeArtist(Artist artist) {
+        artistRepository.delete(artist);
+    }
     public List<Artist> findByGenre(String genre) {
         return artistRepository.findByGenre(genre);
     }
