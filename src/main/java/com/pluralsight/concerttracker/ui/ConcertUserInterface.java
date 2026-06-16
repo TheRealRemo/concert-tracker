@@ -120,7 +120,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 System.out.print("\n Please enter ID of Concert you would like to view: ");
                 long id = scanner.nextLong();
 
-                Concert concert = concertService.concertsByID(id);
+                Concert concert = concertService.concertByID(id);
 
                 System.out.println("-------------------------- \n" + "Concert " + concert.getId()
                         + "\n-------------------------- \n" + "Artist Name: " + concert.getArtist().getName()
@@ -176,11 +176,45 @@ public class ConcertUserInterface implements CommandLineRunner {
     }
 
     //update helper methods
-    public void updateTicketsSold(Scanner scanner){
+    public void updateTicketsSold(Scanner scanner) {
         listAllConcerts();
+
+        boolean validInput = false;
+
+        while (!validInput) {
+
+            try {
+
+                listAllConcerts();
+
+                System.out.print("\nEnter Concert ID: ");
+                long id = scanner.nextLong();
+
+                Concert concert = concertService.concertByID(id);
+
+                System.out.println("Current tickets sold: "
+                        + concert.getTicketsSold());
+
+                System.out.print("Enter updated number of tickets sold: ");
+                int ticketsSold = scanner.nextInt();
+
+                concert.setTicketsSold(ticketsSold);
+
+                concertService.updateConcert(concert);
+
+                System.out.println("Tickets sold updated!");
+                validInput = true;
+
+            }
+            catch (NotFoundException | IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
-    public void updateTicketPrice(Scanner scanner){
-listAllConcerts();
+
+
+    public void updateTicketPrice(Scanner scanner) {
+        listAllConcerts();
     }
 
     //print helper methods
@@ -189,8 +223,7 @@ listAllConcerts();
         System.out.println("Concerts: ");
         for (Concert concert : concertService.allConcerts()) {
             System.out.println("-------------------------- \n" + "Concert " + concert.getId() + "\n" + "-------------------------- \n"
-                    + "Artist Name: " + concert.getArtist().getName() + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity()
-                    + "\nTicket Price: $" + concert.getTicketPrice() + "\nTickets Sold: " + concert.getTicketsSold());
+                    + "Artist Name: " + concert.getArtist().getName() + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity());
         }
 
 

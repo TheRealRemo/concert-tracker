@@ -38,27 +38,30 @@ public class ConcertService {
         return concertRepository.findAll();
     }
 
-    public Concert concertsByID(long id) {
+    public Concert concertByID(long id) {
         return concertRepository.findById(id).orElseThrow(() -> new NotFoundException("No Concert found with ID " + id));
     }
 
     public Concert addConcert(Concert concert) {
 
-            if (concert.getTicketsSold() < 0) {
-                throw new IllegalArgumentException("Tickets sold cannot be less than 0");
-            }
+        if (concert.getTicketsSold() < 0) {
+            throw new IllegalArgumentException("Tickets sold cannot be less than 0");
+        }
 
-            if (concert.getTicketPrice() < 0) {
-                throw new IllegalArgumentException("Ticket price cannot be less than 0");
-            }
+        if (concert.getTicketPrice() < 0) {
+            throw new IllegalArgumentException("Ticket price cannot be less than 0");
+        }
 
-            if (concert.getTicketsSold() > concert.getVenue().getCapacity()) {
-                throw new IllegalArgumentException("Tickets cannot exceed venue capacity");
-            }
+        if (concert.getTicketsSold() > concert.getVenue().getCapacity()) {
+            throw new IllegalArgumentException("Tickets cannot exceed venue capacity");
+        }
 
         return concertRepository.save(concert);
     }
 
+    public Concert updateConcert(Concert concert) {
+        return addConcert(concert);
+    }
 
     public void concertSeedIfEmpty() {
 
