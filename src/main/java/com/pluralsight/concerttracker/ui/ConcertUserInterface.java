@@ -423,7 +423,9 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("Genre: " + artist.getGenre());
         }
     }
+public void findPromoterByName(){
 
+}
     //add helper methods
     public void addNewConcert(Scanner scanner) {
         boolean validInput = false;
