@@ -39,6 +39,7 @@ public class VenueService {
         return venueRepository.findByName(name);
     }
 
+    ///can be used to add and update
     public Venue addVenue(Venue venue) {
 
         if (venue.getCapacity() < 0) {

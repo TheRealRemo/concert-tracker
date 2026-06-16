@@ -29,4 +29,8 @@ public final ArtistRepository artistRepository;
         return artistRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("No Artist found with ID " + id));
     }
+
+    public Artist addArtist(Artist artist) {
+        return artistRepository.save(artist);
+    }
 }

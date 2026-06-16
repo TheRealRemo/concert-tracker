@@ -52,11 +52,13 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("1.) Concerts");
             System.out.println("2.) Search Concerts");
             System.out.println("3.) Artists");
+            System.out.println("4. Venues");
             System.out.println("0) Quit");
             System.out.print("Choose: ");
 
             switch (scanner.nextInt()) {
                 case 1 -> displayConcerts(scanner);
+                case 3 -> displayArtists(scanner);
                 case 4 -> displayVenues(scanner);
                 case 0 -> running = false;
                 default -> System.out.println("Unknown option.");
@@ -184,6 +186,64 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+
+    public void displayArtists(Scanner scanner) {
+        scanner.nextLine();
+        boolean validOption = false;
+
+        while (!validOption) {
+
+            System.out.println("\n1) List All Artists");
+            System.out.println("2) Add Artist");
+            System.out.println("3) Find Artist By Genre");
+            System.out.println("4) Find Artist By Name");
+            System.out.println("5) Update Artist Genre");
+            System.out.println("6) Delete Artist");
+            System.out.println("0) Return To Main Menu");
+            System.out.print("Please enter here: ");
+
+            String input = scanner.nextLine();
+
+            switch (input) {
+
+                case "1" -> {
+                    listAllArtists();
+                    validOption = true;
+                }
+
+                case "2" -> {
+                    addArtist(scanner);
+                    validOption = true;
+                }
+
+                case "3" -> {
+                    findArtistByGenre(scanner);
+                    validOption = true;
+                }
+
+                case "4" -> {
+                    findArtistByName(scanner);
+                    validOption = true;
+                }
+
+                case "5" -> {
+                    updateArtistGenre(scanner);
+                    validOption = true;
+                }
+
+                case "6" -> {
+                    deleteArtist(scanner);
+                    validOption = true;
+                }
+
+                case "0" -> {
+                    validOption = true;
+                }
+
+                default -> System.out.println("Invalid option.");
+            }
+        }
+    }
     //find helper methods
     public void findConcertByID(Scanner scanner) {
         listAllConcerts();
