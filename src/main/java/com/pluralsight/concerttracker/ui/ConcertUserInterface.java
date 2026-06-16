@@ -1,8 +1,7 @@
 package com.pluralsight.concerttracker.ui;
 
 import com.pluralsight.concerttracker.models.Concert;
-import com.pluralsight.concerttracker.service.ConcertService;
-import com.pluralsight.concerttracker.service.NotFoundException;
+import com.pluralsight.concerttracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -12,12 +11,20 @@ import java.util.Scanner;
 @Component
 public class ConcertUserInterface implements CommandLineRunner {
     private final ConcertService concertService;
+    private final ArtistService artistService;
+    private final VenueService venueService;
+    private final PromoterService promoterService;
 
+
+    public ConcertUserInterface(ConcertService concertService, ArtistService artistService, VenueService venueService, PromoterService promoterService) {
+        this.concertService = concertService;
+        this.artistService = artistService;
+        this.venueService = venueService;
+        this.promoterService = promoterService;
+    }
 
     @Autowired
-    public ConcertUserInterface(ConcertService concertService) {
-        this.concertService = concertService;
-    }
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -62,6 +69,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
             System.out.println("\n1) List All Concerts");
             System.out.println("2.) View One Concert By ID");
+            System.out.println("3.) Add a Concert");
             System.out.println("0) Return To Main Menu");
             System.out.print("Please enter here: ");
 
@@ -75,6 +83,10 @@ public class ConcertUserInterface implements CommandLineRunner {
                 }
                 case "2" -> {
                     findConcertByID(scanner);
+                    validOption = true;
+                }
+                case "3" -> {
+                    addNewConcert(scanner);
                     validOption = true;
                 }
 
@@ -110,6 +122,11 @@ public class ConcertUserInterface implements CommandLineRunner {
                 System.out.println("\n" + nfe.getMessage());
             }
         }
+
+    }
+
+    //add helper methods
+    public void addNewConcert(Scanner scanner){
 
     }
 

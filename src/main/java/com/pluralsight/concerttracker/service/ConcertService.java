@@ -42,6 +42,10 @@ public class ConcertService {
         return concertRepository.findById(id).orElseThrow(() -> new NotFoundException("No Concert found with ID " + id));
     }
 
+    public Concert addConcert(Concert concert){
+        return concertRepository.save(concert);
+    }
+
     public void concertSeedIfEmpty() {
 
         if (concertRepository.count() > 0) {
