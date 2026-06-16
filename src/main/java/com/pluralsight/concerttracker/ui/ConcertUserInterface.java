@@ -2,6 +2,7 @@ package com.pluralsight.concerttracker.ui;
 
 import com.pluralsight.concerttracker.models.Artist;
 import com.pluralsight.concerttracker.models.Concert;
+import com.pluralsight.concerttracker.models.Promoter;
 import com.pluralsight.concerttracker.models.Venue;
 import com.pluralsight.concerttracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,6 +167,17 @@ public class ConcertUserInterface implements CommandLineRunner {
                     "Venue Name: " + venue.getName() +
                     "\nCity: " + venue.getCity() +
                     "\nCapacity: " + venue.getCapacity());
+        }
+    }
+    public void listAllPromoters() {
+        System.out.println("There are currently " + promoterService.count() + " Promoters.");
+        System.out.println("Promoters: ");
+
+        for (Promoter promoter : promoterService.allPromoters()) {
+            System.out.println("-------------------------- \n" +
+                    "Promoter " + promoter.getId() +
+                    "\n-------------------------- \n" +
+                    "Promoter Name: " + promoter.getName());
         }
     }
 }

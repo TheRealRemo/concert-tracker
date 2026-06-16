@@ -17,6 +17,9 @@ public class PromoterService {
         this.promoterRepository = promoterRepository;
     }
 
+    public long count() {
+        return promoterRepository.count();
+    }
     public List<Promoter> allPromoters(){
         return promoterRepository.findAll();
     }
