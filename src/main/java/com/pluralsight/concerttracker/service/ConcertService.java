@@ -63,6 +63,10 @@ public class ConcertService {
         return addConcert(concert);
     }
 
+    public void removeConcert(Concert concert){
+         concertRepository.delete(concert);
+    }
+
     public void concertSeedIfEmpty() {
 
         if (concertRepository.count() > 0) {
