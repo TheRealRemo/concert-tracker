@@ -17,6 +17,9 @@ public final ArtistRepository artistRepository;
         this.artistRepository = artistRepository;
     }
 
+    public long count() {
+        return artistRepository.count();
+    }
 
     public List<Artist> allArtists(){
         return artistRepository.findAll();

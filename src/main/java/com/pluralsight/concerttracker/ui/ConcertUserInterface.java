@@ -1,5 +1,6 @@
 package com.pluralsight.concerttracker.ui;
 
+import com.pluralsight.concerttracker.models.Artist;
 import com.pluralsight.concerttracker.models.Concert;
 import com.pluralsight.concerttracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,6 +139,19 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("-------------------------- \n" + "Concert " + concert.getId() + "\n" + "-------------------------- \n"
                     + "Artist Name: " + concert.getArtist().getName() + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity());
         }
-    }
 
+
+    }
+    public void listAllArtists() {
+        System.out.println("There are currently " + artistService.count() + " Artists.");
+        System.out.println("Artists: ");
+
+        for (Artist artist : artistService.allArtists()) {
+            System.out.println("-------------------------- \n" +
+                    "Artist " + artist.getId() +
+                    "\n-------------------------- \n" +
+                    "Artist Name: " + artist.getName() +
+                    "\nGenre: " + artist.getGenre());
+        }
+    }
 }
