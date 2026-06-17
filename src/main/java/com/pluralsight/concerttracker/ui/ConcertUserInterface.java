@@ -35,25 +35,14 @@ public class ConcertUserInterface implements CommandLineRunner {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
-            System.out.println("\n _______                                      \n" +
-                    "(_______)                               _     \n" +
-                    " _       ___  ____   ____ _____  ____ _| |_   \n" +
-                    "| |     / _ \\|  _ \\ / ___) ___ |/ ___|_   _)  \n" +
-                    "| |____| |_| | | | ( (___| ____| |     | |_   \n" +
-                    " \\______)___/|_| |_|\\____)_____)_|      \\__)  \n" +
-                    "                                              \n" +
-                    " _______                _                     \n" +
-                    "(_______)              | |                    \n" +
-                    "    _  ____ _____  ____| |  _ _____  ____     \n" +
-                    "   | |/ ___|____ |/ ___) |_/ ) ___ |/ ___)    \n" +
-                    "   | | |   / ___ ( (___|  _ (| ____| |        \n" +
-                    "   |_|_|   \\_____|\\____)_| \\_)_____)_|        ");
+            System.out.println("\n _______                                      \n" + "(_______)                               _     \n" + " _       ___  ____   ____ _____  ____ _| |_   \n" + "| |     / _ \\|  _ \\ / ___) ___ |/ ___|_   _)  \n" + "| |____| |_| | | | ( (___| ____| |     | |_   \n" + " \\______)___/|_| |_|\\____)_____)_|      \\__)  \n" + "                                              \n" + " _______                _                     \n" + "(_______)              | |                    \n" + "    _  ____ _____  ____| |  _ _____  ____     \n" + "   | |/ ___|____ |/ ___) |_/ ) ___ |/ ___)    \n" + "   | | |   / ___ ( (___|  _ (| ____| |        \n" + "   |_|_|   \\_____|\\____)_| \\_)_____)_|        ");
             System.out.println("========================================================");
-            System.out.println("1.) Concerts");
-            System.out.println("2.) Search Concerts");
-            System.out.println("3.) Artists");
-            System.out.println("4.) Venues");
-            System.out.println("5.) Promoters");
+            System.out.println("1) Concerts");
+            System.out.println("2) Search Concerts");
+            System.out.println("3) Artists");
+            System.out.println("4) Venues");
+            System.out.println("5) Promoters");
+            System.out.println("6) Reports");
             System.out.println("0) Quit");
             System.out.print("Choose: ");
 
@@ -63,6 +52,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 case 3 -> displayArtists(scanner);
                 case 4 -> displayVenues(scanner);
                 case 5 -> displayPromoters(scanner);
+                case 6 -> displayReports(scanner);
                 case 0 -> running = false;
                 default -> System.out.println("Unknown option.");
             }
@@ -131,8 +121,8 @@ public class ConcertUserInterface implements CommandLineRunner {
         boolean validOption = false;
 
         while (!validOption) {
-
-            System.out.println("\n1) List All Venues");
+            System.out.println("====== Venues ======");
+            System.out.println("1) List All Venues");
             System.out.println("2) Add Venue");
             System.out.println("3) Find Venue By City");
             System.out.println("4) Find Venue By Name");
@@ -195,8 +185,8 @@ public class ConcertUserInterface implements CommandLineRunner {
         boolean validOption = false;
 
         while (!validOption) {
-
-            System.out.println("\n1) List All Artists");
+            System.out.println("\n=== Artists ===");
+            System.out.println("1) List All Artists");
             System.out.println("2) Add Artist");
             System.out.println("3) Find Artist By Genre");
             System.out.println("4) Find Artist By Name");
@@ -294,7 +284,6 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
-
     public void displaySearchConcerts(Scanner scanner) {
         scanner.nextLine();
         boolean validOption = false;
@@ -337,12 +326,12 @@ public class ConcertUserInterface implements CommandLineRunner {
                 }
 
                 case "5" -> {
-                 findConcertsByMaxPrice(scanner);
+                    findConcertsByMaxPrice(scanner);
                     validOption = true;
                 }
 
                 case "6" -> {
-                  findConcertsByPriceRange(scanner);
+                    findConcertsByPriceRange(scanner);
                     validOption = true;
                 }
 
@@ -360,6 +349,54 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+    public void displayReports(Scanner scanner) {
+        scanner.nextLine();
+        boolean validOption = false;
+
+        while (!validOption) {
+
+            System.out.println("\n=== Reports ===");
+            System.out.println("1) Revenue Per Venue");
+            System.out.println("2) Busiest Venue and Artist");
+            System.out.println("3) Average Ticket Price By Year");
+            System.out.println("4) Capacity Report");
+            System.out.println("0) Return To Main Menu");
+            System.out.print("Please enter here: ");
+
+            String input = scanner.nextLine();
+
+            switch (input) {
+
+                case "1" -> {
+                    revenuePerVenue();
+                    validOption = true;
+                }
+
+                case "2" -> {
+                    busiestVenueAndArtist();
+                    validOption = true;
+                }
+
+                case "3" -> {
+                    averageTicketPriceByYear();
+                    validOption = true;
+                }
+
+                case "4" -> {
+                    capacityReport();
+                    validOption = true;
+                }
+
+                case "0" -> {
+                    validOption = true;
+                }
+
+                default -> System.out.println("Invalid option.");
+            }
+        }
+    }
+
+
     //find helper methods
     public void findConcertByID(Scanner scanner) {
         listAllConcerts();
@@ -372,11 +409,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 Concert concert = concertService.concertByID(id);
 
-                System.out.println("-------------------------- \n" + "Concert " + concert.getId()
-                        + "\n-------------------------- \n" + "Artist Name: " + concert.getArtist().getName()
-                        + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity()
-                        + "\nPromoter: " + concert.getPromoter().getName() + "\nYear Held: " + concert.getYear()
-                        + "\nPrice: " + concert.getTicketPrice() + "\nTickets Sold: " + concert.getTicketsSold());
+                System.out.println("-------------------------- \n" + "Concert " + concert.getId() + "\n-------------------------- \n" + "Artist Name: " + concert.getArtist().getName() + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity() + "\nPromoter: " + concert.getPromoter().getName() + "\nYear Held: " + concert.getYear() + "\nPrice: " + concert.getTicketPrice() + "\nTickets Sold: " + concert.getTicketsSold());
                 idNotFound = false;
             } catch (NotFoundException nfe) {
                 System.out.println("\n" + nfe.getMessage());
@@ -432,8 +465,7 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.print("Enter minimum capacity: ");
         int capacity = scanner.nextInt();
 
-        List<Venue> venues =
-                venueService.findByMinimumCapacity(capacity);
+        List<Venue> venues = venueService.findByMinimumCapacity(capacity);
 
         if (venues.isEmpty()) {
             System.out.println("No venues found with capacity of at least " + capacity);
@@ -498,12 +530,10 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.print("Enter promoter name: ");
         String name = scanner.nextLine();
 
-        List<Promoter> promoters =
-                promoterService.findByName(name);
+        List<Promoter> promoters = promoterService.findByName(name);
 
         if (promoters.isEmpty()) {
-            System.out.println(
-                    "No promoters found with name: " + name);
+            System.out.println("No promoters found with name: " + name);
             return;
         }
 
@@ -512,8 +542,7 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("--------------------------");
             System.out.println("Promoter " + promoter.getId());
             System.out.println("--------------------------");
-            System.out.println("Promoter Name: "
-                    + promoter.getName());
+            System.out.println("Promoter Name: " + promoter.getName());
         }
     }
 
@@ -522,12 +551,10 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.print("Enter year: ");
         int year = scanner.nextInt();
 
-        List<Concert> concerts =
-                concertService.findByYear(year);
+        List<Concert> concerts = concertService.findByYear(year);
 
         if (concerts.isEmpty()) {
-            System.out.println(
-                    "No concerts found for year " + year);
+            System.out.println("No concerts found for year " + year);
             return;
         }
 
@@ -536,18 +563,12 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("--------------------------");
             System.out.println("Concert " + concert.getId());
             System.out.println("--------------------------");
-            System.out.println("Artist: "
-                    + concert.getArtist().getName());
-            System.out.println("Venue: "
-                    + concert.getVenue().getName());
-            System.out.println("City: "
-                    + concert.getVenue().getCity());
-            System.out.println("Year: "
-                    + concert.getYear());
-            System.out.println("Price: $"
-                    + concert.getTicketPrice());
-            System.out.println("Tickets Sold: "
-                    + concert.getTicketsSold());
+            System.out.println("Artist: " + concert.getArtist().getName());
+            System.out.println("Venue: " + concert.getVenue().getName());
+            System.out.println("City: " + concert.getVenue().getCity());
+            System.out.println("Year: " + concert.getYear());
+            System.out.println("Price: $" + concert.getTicketPrice());
+            System.out.println("Tickets Sold: " + concert.getTicketsSold());
         }
     }
 
@@ -556,12 +577,10 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.print("Enter artist name: ");
         String name = scanner.nextLine();
 
-        List<Concert> concerts =
-                concertService.findByArtistName(name);
+        List<Concert> concerts = concertService.findByArtistName(name);
 
         if (concerts.isEmpty()) {
-            System.out.println(
-                    "No concerts found for artist: " + name);
+            System.out.println("No concerts found for artist: " + name);
             return;
         }
 
@@ -570,18 +589,12 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("--------------------------");
             System.out.println("Concert " + concert.getId());
             System.out.println("--------------------------");
-            System.out.println("Artist: "
-                    + concert.getArtist().getName());
-            System.out.println("Venue: "
-                    + concert.getVenue().getName());
-            System.out.println("City: "
-                    + concert.getVenue().getCity());
-            System.out.println("Year: "
-                    + concert.getYear());
-            System.out.println("Price: $"
-                    + concert.getTicketPrice());
-            System.out.println("Tickets Sold: "
-                    + concert.getTicketsSold());
+            System.out.println("Artist: " + concert.getArtist().getName());
+            System.out.println("Venue: " + concert.getVenue().getName());
+            System.out.println("City: " + concert.getVenue().getCity());
+            System.out.println("Year: " + concert.getYear());
+            System.out.println("Price: $" + concert.getTicketPrice());
+            System.out.println("Tickets Sold: " + concert.getTicketsSold());
         }
     }
 
@@ -590,12 +603,10 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.print("Enter venue name: ");
         String venue = scanner.nextLine();
 
-        List<Concert> concerts =
-                concertService.findByVenueName(venue);
+        List<Concert> concerts = concertService.findByVenueName(venue);
 
         if (concerts.isEmpty()) {
-            System.out.println(
-                    "No concerts found for venue: " + venue);
+            System.out.println("No concerts found for venue: " + venue);
             return;
         }
 
@@ -604,18 +615,12 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("--------------------------");
             System.out.println("Concert " + concert.getId());
             System.out.println("--------------------------");
-            System.out.println("Artist: "
-                    + concert.getArtist().getName());
-            System.out.println("Venue: "
-                    + concert.getVenue().getName());
-            System.out.println("City: "
-                    + concert.getVenue().getCity());
-            System.out.println("Year: "
-                    + concert.getYear());
-            System.out.println("Price: $"
-                    + concert.getTicketPrice());
-            System.out.println("Tickets Sold: "
-                    + concert.getTicketsSold());
+            System.out.println("Artist: " + concert.getArtist().getName());
+            System.out.println("Venue: " + concert.getVenue().getName());
+            System.out.println("City: " + concert.getVenue().getCity());
+            System.out.println("Year: " + concert.getYear());
+            System.out.println("Price: $" + concert.getTicketPrice());
+            System.out.println("Tickets Sold: " + concert.getTicketsSold());
         }
     }
 
@@ -624,8 +629,7 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.print("Enter city: ");
         String city = scanner.nextLine();
 
-        List<Concert> concerts =
-                concertService.findByCity(city);
+        List<Concert> concerts = concertService.findByCity(city);
 
         if (concerts.isEmpty()) {
             System.out.println("No concerts found in " + city);
@@ -651,8 +655,7 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.print("Enter maximum ticket price: ");
         double price = scanner.nextDouble();
 
-        List<Concert> concerts =
-                concertService.findByMaxPrice(price);
+        List<Concert> concerts = concertService.findByMaxPrice(price);
 
         if (concerts.isEmpty()) {
             System.out.println("No concerts found at or below $" + price);
@@ -664,18 +667,12 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("--------------------------");
             System.out.println("Concert " + concert.getId());
             System.out.println("--------------------------");
-            System.out.println("Artist: "
-                    + concert.getArtist().getName());
-            System.out.println("Venue: "
-                    + concert.getVenue().getName());
-            System.out.println("City: "
-                    + concert.getVenue().getCity());
-            System.out.println("Year: "
-                    + concert.getYear());
-            System.out.println("Price: $"
-                    + concert.getTicketPrice());
-            System.out.println("Tickets Sold: "
-                    + concert.getTicketsSold());
+            System.out.println("Artist: " + concert.getArtist().getName());
+            System.out.println("Venue: " + concert.getVenue().getName());
+            System.out.println("City: " + concert.getVenue().getCity());
+            System.out.println("Year: " + concert.getYear());
+            System.out.println("Price: $" + concert.getTicketPrice());
+            System.out.println("Tickets Sold: " + concert.getTicketsSold());
         }
     }
 
@@ -687,12 +684,10 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.print("Enter maximum price: ");
         double maxPrice = scanner.nextDouble();
 
-        List<Concert> concerts =
-                concertService.findByPriceRange(minPrice, maxPrice);
+        List<Concert> concerts = concertService.findByPriceRange(minPrice, maxPrice);
 
         if (concerts.isEmpty()) {
-            System.out.println(
-                    "No concerts found between $" + minPrice + " and $" + maxPrice);
+            System.out.println("No concerts found between $" + minPrice + " and $" + maxPrice);
             return;
         }
 
@@ -701,18 +696,12 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("--------------------------");
             System.out.println("Concert " + concert.getId());
             System.out.println("--------------------------");
-            System.out.println("Artist: "
-                    + concert.getArtist().getName());
-            System.out.println("Venue: "
-                    + concert.getVenue().getName());
-            System.out.println("City: "
-                    + concert.getVenue().getCity());
-            System.out.println("Year: "
-                    + concert.getYear());
-            System.out.println("Price: $"
-                    + concert.getTicketPrice());
-            System.out.println("Tickets Sold: "
-                    + concert.getTicketsSold());
+            System.out.println("Artist: " + concert.getArtist().getName());
+            System.out.println("Venue: " + concert.getVenue().getName());
+            System.out.println("City: " + concert.getVenue().getCity());
+            System.out.println("Year: " + concert.getYear());
+            System.out.println("Price: $" + concert.getTicketPrice());
+            System.out.println("Tickets Sold: " + concert.getTicketsSold());
         }
     }
 
@@ -744,6 +733,7 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("Tickets Sold: " + concert.getTicketsSold());
         }
     }
+
     //add helper methods
     public void addNewConcert(Scanner scanner) {
         boolean validInput = false;
@@ -826,8 +816,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 System.out.print("Genre: ");
                 String genre = scanner.nextLine();
 
-                artistService.addArtist(
-                        new Artist(name, genre));
+                artistService.addArtist(new Artist(name, genre));
 
                 System.out.println("Artist added!");
 
@@ -850,8 +839,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 System.out.print("Promoter Name: ");
                 String name = scanner.nextLine();
 
-                promoterService.addPromoter(
-                        new Promoter(name));
+                promoterService.addPromoter(new Promoter(name));
 
                 System.out.println("Promoter added!");
 
@@ -1048,8 +1036,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 Venue venue = venueService.getVenueById(id);
 
-                System.out.println("Deleting venue: "
-                        + venue.getName());
+                System.out.println("Deleting venue: " + venue.getName());
 
                 venueService.removeVenue(venue);
 
@@ -1115,8 +1102,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 Promoter promoter = promoterService.getPromoterById(id);
 
-                System.out.println("Deleting promoter: "
-                        + promoter.getName());
+                System.out.println("Deleting promoter: " + promoter.getName());
 
                 promoterService.removePromoter(promoter);
 
@@ -1135,8 +1121,7 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");
         System.out.println("Concerts: ");
         for (Concert concert : concertService.allConcerts()) {
-            System.out.println("-------------------------- \n" + "Concert " + concert.getId() + "\n" + "-------------------------- \n"
-                    + "Artist Name: " + concert.getArtist().getName() + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity());
+            System.out.println("-------------------------- \n" + "Concert " + concert.getId() + "\n" + "-------------------------- \n" + "Artist Name: " + concert.getArtist().getName() + "\nVenue: " + concert.getVenue().getName() + ", " + concert.getVenue().getCity());
         }
 
 
@@ -1147,11 +1132,7 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.println("Artists: ");
 
         for (Artist artist : artistService.allArtists()) {
-            System.out.println("-------------------------- \n" +
-                    "Artist " + artist.getId() +
-                    "\n-------------------------- \n" +
-                    "Artist Name: " + artist.getName() +
-                    "\nGenre: " + artist.getGenre());
+            System.out.println("-------------------------- \n" + "Artist " + artist.getId() + "\n-------------------------- \n" + "Artist Name: " + artist.getName() + "\nGenre: " + artist.getGenre());
         }
     }
 
@@ -1160,12 +1141,7 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.println("Venues: ");
 
         for (Venue venue : venueService.allVenues()) {
-            System.out.println("-------------------------- \n" +
-                    "Venue " + venue.getId() +
-                    "\n-------------------------- \n" +
-                    "Venue Name: " + venue.getName() +
-                    "\nCity: " + venue.getCity() +
-                    "\nCapacity: " + venue.getCapacity());
+            System.out.println("-------------------------- \n" + "Venue " + venue.getId() + "\n-------------------------- \n" + "Venue Name: " + venue.getName() + "\nCity: " + venue.getCity() + "\nCapacity: " + venue.getCapacity());
         }
     }
 
@@ -1174,10 +1150,7 @@ public class ConcertUserInterface implements CommandLineRunner {
         System.out.println("Promoters: ");
 
         for (Promoter promoter : promoterService.allPromoters()) {
-            System.out.println("-------------------------- \n" +
-                    "Promoter " + promoter.getId() +
-                    "\n-------------------------- \n" +
-                    "Promoter Name: " + promoter.getName());
+            System.out.println("-------------------------- \n" + "Promoter " + promoter.getId() + "\n-------------------------- \n" + "Promoter Name: " + promoter.getName());
         }
     }
 }
