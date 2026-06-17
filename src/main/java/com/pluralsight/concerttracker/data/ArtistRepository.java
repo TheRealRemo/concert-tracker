@@ -9,4 +9,5 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
     List<Artist> findByGenre(String genre);
 
     List<Artist> findByName(String name);
+
 }

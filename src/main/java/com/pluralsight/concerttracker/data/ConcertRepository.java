@@ -7,7 +7,17 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ConcertRepository extends JpaRepository <Concert, Long> {
+public interface ConcertRepository extends JpaRepository<Concert, Long> {
     @Query("SELECT c FROM Concert c WHERE c.year = :year")
     List<Concert> findByYear(@Param("year") int year);
+
+    //triple text block feature allows for clearer queries
+    //rather than use CONCAT '%' on both sides of the String/Object field
+    @Query("""
+            SELECT c
+            FROM Concert c
+            WHERE c.artist.name LIKE %:name%
+            """)
+    List<Concert> findByArtistName(
+            @Param("name") String name);
 }
