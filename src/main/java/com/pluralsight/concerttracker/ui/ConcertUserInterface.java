@@ -1221,7 +1221,7 @@ public class ConcertUserInterface implements CommandLineRunner {
     }
 
     public void averageTicketPriceByYear() {
-      // Keep track of years we've already reported on
+        // Keep track of years we've already reported on
         List<Integer> years = new ArrayList<>();
         // Go through every concert
         for (Concert concert : concertService.allConcerts()) {
@@ -1235,13 +1235,37 @@ public class ConcertUserInterface implements CommandLineRunner {
             double average = concertService.averageTicketPriceByYear(year);
 
             System.out.printf("%d Average Ticket Price: $%,.2f%n", year, average);
-          //so year won't print again
+            //so year won't print again
             years.add(year);
         }
     }
 
     public void capacityReport() {
 
+        if (concertService.allConcerts().isEmpty()) {
+            System.out.println("No concert data available.");
+            return;
+        }
+
+        // Go through every concert
+        for (Concert concert : concertService.allConcerts()) {
+
+            // Calculate what percentage of seats have been sold (tickets sold is int so must be cast)
+            double capacityPercentage = (double) concert.getTicketsSold() / concert.getVenue().getCapacity() * 100;
+
+            System.out.println("--------------------------");
+            System.out.println("Artist: " + concert.getArtist().getName());
+            System.out.println("Venue: " + concert.getVenue().getName());
+            System.out.println("Tickets Sold: " + concert.getTicketsSold());
+            System.out.println("Capacity: " + concert.getVenue().getCapacity());
+
+            System.out.printf("Filled: %.2f%%%n", capacityPercentage);
+
+            // show sold out concerts
+            if (concert.getTicketsSold() == concert.getVenue().getCapacity()) {
+                System.out.println("SOLD OUT");
+            }
+        }
     }
 }
 
