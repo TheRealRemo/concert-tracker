@@ -57,9 +57,15 @@ public class ConcertService {
     public List<Concert> findByCity(String city) {
         return concertRepository.findByCity(city);
     }
+
     public List<Concert> findByMaxPrice(double price) {
         return concertRepository.findByMaxPrice(price);
     }
+
+    public List<Concert> findByPriceRange(double minPrice, double maxPrice) {
+        return concertRepository.findByPriceRange(minPrice, maxPrice);
+    }
+
     /// can be used to add and update
     public Concert addConcert(Concert concert) {
 

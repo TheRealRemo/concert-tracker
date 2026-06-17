@@ -342,7 +342,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 }
 
                 case "6" -> {
-//                    findConcertsByPriceRange(scanner);
+                  findConcertsByPriceRange(scanner);
                     validOption = true;
                 }
 
@@ -680,6 +680,43 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+    public void findConcertsByPriceRange(Scanner scanner) {
+
+        System.out.print("Enter minimum price: ");
+        double minPrice = scanner.nextDouble();
+
+        System.out.print("Enter maximum price: ");
+        double maxPrice = scanner.nextDouble();
+
+        List<Concert> concerts =
+                concertService.findByPriceRange(minPrice, maxPrice);
+
+        if (concerts.isEmpty()) {
+            System.out.println(
+                    "No concerts found between $" +
+                            minPrice + " and $" + maxPrice);
+            return;
+        }
+
+        for (Concert concert : concerts) {
+
+            System.out.println("--------------------------");
+            System.out.println("Concert " + concert.getId());
+            System.out.println("--------------------------");
+            System.out.println("Artist: "
+                    + concert.getArtist().getName());
+            System.out.println("Venue: "
+                    + concert.getVenue().getName());
+            System.out.println("City: "
+                    + concert.getVenue().getCity());
+            System.out.println("Year: "
+                    + concert.getYear());
+            System.out.println("Price: $"
+                    + concert.getTicketPrice());
+            System.out.println("Tickets Sold: "
+                    + concert.getTicketsSold());
+        }
+    }
     //add helper methods
     public void addNewConcert(Scanner scanner) {
         boolean validInput = false;

@@ -23,4 +23,7 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
 
     @Query("SELECT c FROM Concert c WHERE c.ticketPrice <= :price")
     List<Concert> findByMaxPrice(@Param("price") double price);
+
+    @Query("SELECT c FROM Concert c WHERE c.ticketPrice BETWEEN :minPrice AND :maxPrice")
+    List<Concert> findByPriceRange(@Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
 }
