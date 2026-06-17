@@ -18,6 +18,8 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
             FROM Concert c
             WHERE c.artist.name LIKE %:name%
             """)
-    List<Concert> findByArtistName(
-            @Param("name") String name);
+    List<Concert> findByArtistName(@Param("name") String name);
+
+    @Query("SELECT c FROM Concert c WHERE c.venue.name = :venue")
+    List<Concert> findByVenueName(@Param("venue") String venue);
 }

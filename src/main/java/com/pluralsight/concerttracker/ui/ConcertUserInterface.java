@@ -585,6 +585,40 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+    public void findConcertsByVenue(Scanner scanner) {
+
+        System.out.print("Enter venue name: ");
+        String venue = scanner.nextLine();
+
+        List<Concert> concerts =
+                concertService.findByVenueName(venue);
+
+        if (concerts.isEmpty()) {
+            System.out.println(
+                    "No concerts found for venue: " + venue);
+            return;
+        }
+
+        for (Concert concert : concerts) {
+
+            System.out.println("--------------------------");
+            System.out.println("Concert " + concert.getId());
+            System.out.println("--------------------------");
+            System.out.println("Artist: "
+                    + concert.getArtist().getName());
+            System.out.println("Venue: "
+                    + concert.getVenue().getName());
+            System.out.println("City: "
+                    + concert.getVenue().getCity());
+            System.out.println("Year: "
+                    + concert.getYear());
+            System.out.println("Price: $"
+                    + concert.getTicketPrice());
+            System.out.println("Tickets Sold: "
+                    + concert.getTicketsSold());
+        }
+    }
+
     //add helper methods
     public void addNewConcert(Scanner scanner) {
         boolean validInput = false;
