@@ -517,6 +517,9 @@ public class ConcertUserInterface implements CommandLineRunner {
         }
     }
 
+    public void findConcertsByYear(Scanner scanner){
+
+    }
     //add helper methods
     public void addNewConcert(Scanner scanner) {
         boolean validInput = false;
