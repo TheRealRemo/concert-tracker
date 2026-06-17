@@ -41,6 +41,9 @@ public class ConcertService {
     public Concert concertByID(long id) {
         return concertRepository.findById(id).orElseThrow(() -> new NotFoundException("No Concert found with ID " + id));
     }
+    public List<Concert> findByYear(int year) {
+        return concertRepository.findByYear(year);
+    }
 ///can be used to add and update
     public Concert addConcert(Concert concert) {
 
@@ -64,6 +67,7 @@ public class ConcertService {
     public void removeConcert(Concert concert){
          concertRepository.delete(concert);
     }
+
 
     public void concertSeedIfEmpty() {
 
