@@ -54,6 +54,10 @@ public class ConcertService {
         return concertRepository.findByVenueName(venue);
     }
 
+    public List<Concert> findByCity(String city) {
+        return concertRepository.findByCity(city);
+    }
+
     /// can be used to add and update
     public Concert addConcert(Concert concert) {
 
