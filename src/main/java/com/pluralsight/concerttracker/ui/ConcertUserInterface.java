@@ -347,7 +347,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 }
 
                 case "7" -> {
-//                    findConcertsByPriceAndYear(scanner);
+                    findConcertsByPriceAndYear(scanner);
                     validOption = true;
                 }
 
@@ -655,8 +655,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 concertService.findByMaxPrice(price);
 
         if (concerts.isEmpty()) {
-            System.out.println(
-                    "No concerts found at or below $" + price);
+            System.out.println("No concerts found at or below $" + price);
             return;
         }
 
@@ -693,8 +692,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
         if (concerts.isEmpty()) {
             System.out.println(
-                    "No concerts found between $" +
-                            minPrice + " and $" + maxPrice);
+                    "No concerts found between $" + minPrice + " and $" + maxPrice);
             return;
         }
 
@@ -715,6 +713,35 @@ public class ConcertUserInterface implements CommandLineRunner {
                     + concert.getTicketPrice());
             System.out.println("Tickets Sold: "
                     + concert.getTicketsSold());
+        }
+    }
+
+    public void findConcertsByPriceAndYear(Scanner scanner) {
+
+        System.out.print("Enter maximum ticket price: ");
+        double maxPrice = scanner.nextDouble();
+
+        System.out.print("Enter earliest year: ");
+        int earliestYear = scanner.nextInt();
+
+        List<Concert> concerts = concertService.findByPriceAndYear(maxPrice, earliestYear);
+
+        if (concerts.isEmpty()) {
+            System.out.println("No concerts found matching the criteria.");
+            return;
+        }
+
+        for (Concert concert : concerts) {
+
+            System.out.println("--------------------------");
+            System.out.println("Concert " + concert.getId());
+            System.out.println("--------------------------");
+            System.out.println("Artist: " + concert.getArtist().getName());
+            System.out.println("Venue: " + concert.getVenue().getName());
+            System.out.println("City: " + concert.getVenue().getCity());
+            System.out.println("Year: " + concert.getYear());
+            System.out.println("Price: $" + concert.getTicketPrice());
+            System.out.println("Tickets Sold: " + concert.getTicketsSold());
         }
     }
     //add helper methods

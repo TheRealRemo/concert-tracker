@@ -66,6 +66,10 @@ public class ConcertService {
         return concertRepository.findByPriceRange(minPrice, maxPrice);
     }
 
+    public List<Concert> findByPriceAndYear(double maxPrice, int earliestYear) {
+        return concertRepository.findByPriceAndYear(maxPrice, earliestYear);
+    }
+
     /// can be used to add and update
     public Concert addConcert(Concert concert) {
 
