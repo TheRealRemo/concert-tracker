@@ -1,6 +1,7 @@
 package com.pluralsight.concerttracker.data;
 
 import com.pluralsight.concerttracker.models.Concert;
+import com.pluralsight.concerttracker.models.Venue;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,9 +28,9 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
     @Query("SELECT c FROM Concert c WHERE c.ticketPrice BETWEEN :minPrice AND :maxPrice")
     List<Concert> findByPriceRange(@Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
 
-    @Query(" SELECT c FROM Concert c " +
-            " WHERE c.ticketPrice <= :maxPrice  AND c.year >= :earliestYear ")
-    List<Concert> findByPriceAndYear(
-            @Param("maxPrice") double maxPrice,
-            @Param("earliestYear") int earliestYear);
+    @Query(" SELECT c FROM Concert c " + " WHERE c.ticketPrice <= :maxPrice  AND c.year >= :earliestYear ")
+    List<Concert> findByPriceAndYear(@Param("maxPrice") double maxPrice, @Param("earliestYear") int earliestYear);
+
+    @Query(" SELECT SUM(c.ticketPrice * c.ticketsSold) FROM Concert c WHERE c.venue = :venue")
+    Double revenueByVenue(@Param("venue") Venue venue);
 }

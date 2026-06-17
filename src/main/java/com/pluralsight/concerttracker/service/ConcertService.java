@@ -70,6 +70,19 @@ public class ConcertService {
         return concertRepository.findByPriceAndYear(maxPrice, earliestYear);
     }
 
+    //reports methods
+    //non-primitive Double allows for additional error prevention by SQL
+    public Double revenueByVenue(Venue venue) {
+
+        Double revenue = concertRepository.revenueByVenue(venue);
+
+        if (revenue == null) {
+            return 0.0;
+        }
+
+        return revenue;
+    }
+
     /// can be used to add and update
     public Concert addConcert(Concert concert) {
 

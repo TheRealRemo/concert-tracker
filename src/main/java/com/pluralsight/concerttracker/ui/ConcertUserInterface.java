@@ -373,17 +373,17 @@ public class ConcertUserInterface implements CommandLineRunner {
                 }
 
                 case "2" -> {
-                    busiestVenueAndArtist();
+//                    busiestVenueAndArtist();
                     validOption = true;
                 }
 
                 case "3" -> {
-                    averageTicketPriceByYear();
+//                    averageTicketPriceByYear();
                     validOption = true;
                 }
 
                 case "4" -> {
-                    capacityReport();
+//                    capacityReport();
                     validOption = true;
                 }
 
@@ -1153,4 +1153,26 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("-------------------------- \n" + "Promoter " + promoter.getId() + "\n-------------------------- \n" + "Promoter Name: " + promoter.getName());
         }
     }
+
+    // report helper methods
+    public void revenuePerVenue() {
+
+        List<Venue> venues = venueService.allVenues();
+
+        if (venues.isEmpty()) {
+            System.out.println("No venue data available.");
+            return;
+        }
+
+        for (Venue venue : venues) {
+
+            Double revenue =
+                    concertService.revenueByVenue(venue);
+
+            System.out.println("--------------------------");
+            System.out.println("Venue: " + venue.getName());
+            System.out.printf("Revenue: $%,.2f%n", revenue);
+        }
+    }
 }
+
