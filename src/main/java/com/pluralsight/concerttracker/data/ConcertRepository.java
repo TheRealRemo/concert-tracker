@@ -20,4 +20,7 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
 
     @Query("SELECT c FROM Concert c WHERE c.venue.city = :city")
     List<Concert> findByCity(@Param("city") String city);
+
+    @Query("SELECT c FROM Concert c WHERE c.ticketPrice <= :price")
+    List<Concert> findByMaxPrice(@Param("price") double price);
 }

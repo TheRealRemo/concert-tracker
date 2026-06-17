@@ -337,7 +337,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 }
 
                 case "5" -> {
-//                    findConcertsByMaxPrice(scanner);
+                 findConcertsByMaxPrice(scanner);
                     validOption = true;
                 }
 
@@ -643,6 +643,40 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("Year: " + concert.getYear());
             System.out.println("Price: $" + concert.getTicketPrice());
             System.out.println("Tickets Sold: " + concert.getTicketsSold());
+        }
+    }
+
+    public void findConcertsByMaxPrice(Scanner scanner) {
+
+        System.out.print("Enter maximum ticket price: ");
+        double price = scanner.nextDouble();
+
+        List<Concert> concerts =
+                concertService.findByMaxPrice(price);
+
+        if (concerts.isEmpty()) {
+            System.out.println(
+                    "No concerts found at or below $" + price);
+            return;
+        }
+
+        for (Concert concert : concerts) {
+
+            System.out.println("--------------------------");
+            System.out.println("Concert " + concert.getId());
+            System.out.println("--------------------------");
+            System.out.println("Artist: "
+                    + concert.getArtist().getName());
+            System.out.println("Venue: "
+                    + concert.getVenue().getName());
+            System.out.println("City: "
+                    + concert.getVenue().getCity());
+            System.out.println("Year: "
+                    + concert.getYear());
+            System.out.println("Price: $"
+                    + concert.getTicketPrice());
+            System.out.println("Tickets Sold: "
+                    + concert.getTicketsSold());
         }
     }
 

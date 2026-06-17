@@ -50,4 +50,5 @@ public class ArtistService {
     public List<Artist> findByName(String name) {
         return artistRepository.findByName(name);
     }
+
 }
