@@ -40,6 +40,7 @@ public class PromoterService {
         try {
             promoterRepository.delete(promoter);
         }
+        ///prevents app crashing with DataIntegrityViolation if promoter is in use by concerts
         catch (DataIntegrityViolationException e) {
             throw new IllegalArgumentException("Cannot delete promoter because concerts still reference it.");
         }

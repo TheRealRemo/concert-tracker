@@ -52,14 +52,17 @@ public class ConcertUserInterface implements CommandLineRunner {
             System.out.println("1.) Concerts");
             System.out.println("2.) Search Concerts");
             System.out.println("3.) Artists");
-            System.out.println("4. Venues");
+            System.out.println("4.) Venues");
+            System.out.println("5.) Promoters");
             System.out.println("0) Quit");
             System.out.print("Choose: ");
 
             switch (scanner.nextInt()) {
                 case 1 -> displayConcerts(scanner);
+                case 2 -> displaySearchConcerts(scanner);
                 case 3 -> displayArtists(scanner);
                 case 4 -> displayVenues(scanner);
+                case 5 -> displayPromoters(scanner);
                 case 0 -> running = false;
                 default -> System.out.println("Unknown option.");
             }
@@ -74,8 +77,8 @@ public class ConcertUserInterface implements CommandLineRunner {
         boolean validOption = false;
 
         while (!validOption) {
-
-            System.out.println("\n1) List All Concerts");
+            System.out.println("\n===== Concerts =====");
+            System.out.println("1) List All Concerts");
             System.out.println("2.) View One Concert By ID");
             System.out.println("3.) Add a Concert");
             System.out.println("4.) Update Ticket Price");
@@ -279,6 +282,72 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 case "4" -> {
                     deletePromoter(scanner);
+                    validOption = true;
+                }
+
+                case "0" -> {
+                    validOption = true;
+                }
+
+                default -> System.out.println("Invalid option.");
+            }
+        }
+    }
+
+
+    public void displaySearchConcerts(Scanner scanner) {
+        scanner.nextLine();
+        boolean validOption = false;
+
+        while (!validOption) {
+
+            System.out.println("\n=== Search Concerts ===");
+            System.out.println("1) Search By Year");
+            System.out.println("2) Search By Artist");
+            System.out.println("3) Search By Venue");
+            System.out.println("4) Search By City");
+            System.out.println("5) Search By Maximum Price");
+            System.out.println("6) Search By Price Range");
+            System.out.println("7) Search By Maximum Price And Earliest Year");
+            System.out.println("0) Return To Main Menu");
+            System.out.print("Please enter here: ");
+
+            String input = scanner.nextLine();
+
+            switch (input) {
+
+                case "1" -> {
+                    findConcertsByYear(scanner);
+                    validOption = true;
+                }
+
+                case "2" -> {
+                    findConcertsByArtist(scanner);
+                    validOption = true;
+                }
+
+                case "3" -> {
+                    findConcertsByVenue(scanner);
+                    validOption = true;
+                }
+
+                case "4" -> {
+                    findConcertsByCity(scanner);
+                    validOption = true;
+                }
+
+                case "5" -> {
+                    findConcertsByMaxPrice(scanner);
+                    validOption = true;
+                }
+
+                case "6" -> {
+                    findConcertsByPriceRange(scanner);
+                    validOption = true;
+                }
+
+                case "7" -> {
+                    findConcertsByPriceAndYear(scanner);
                     validOption = true;
                 }
 
@@ -794,8 +863,7 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 validInput = true;
 
-            }
-            catch (NotFoundException | IllegalArgumentException e) {
+            } catch (NotFoundException | IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -829,12 +897,12 @@ public class ConcertUserInterface implements CommandLineRunner {
 
                 validInput = true;
 
-            }
-            catch (NotFoundException | IllegalArgumentException e) {
+            } catch (NotFoundException | IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
+
     //print helper methods
     public void listAllConcerts() {
         System.out.println("There are currently " + concertService.count() + " Ongoing concerts.");
