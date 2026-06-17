@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -373,17 +374,17 @@ public class ConcertUserInterface implements CommandLineRunner {
                 }
 
                 case "2" -> {
-//                    busiestVenueAndArtist();
+                    busiestVenueAndArtist();
                     validOption = true;
                 }
 
                 case "3" -> {
-//                    averageTicketPriceByYear();
+                    averageTicketPriceByYear();
                     validOption = true;
                 }
 
                 case "4" -> {
-//                    capacityReport();
+                    capacityReport();
                     validOption = true;
                 }
 
@@ -1166,13 +1167,81 @@ public class ConcertUserInterface implements CommandLineRunner {
 
         for (Venue venue : venues) {
 
-            Double revenue =
-                    concertService.revenueByVenue(venue);
+            Double revenue = concertService.revenueByVenue(venue);
 
             System.out.println("--------------------------");
             System.out.println("Venue: " + venue.getName());
             System.out.printf("Revenue: $%,.2f%n", revenue);
         }
+    }
+
+    public void busiestVenueAndArtist() {
+        // Keep track of the venue with the most concerts
+        Venue busiestVenue = null;
+        long mostVenueConcerts = 0;
+        // Check each venue and count how many concerts it hosts
+        for (Venue venue : venueService.allVenues()) {
+
+            long count = concertService.concertCountByVenue(venue);
+            // Update venue with most concerts
+            if (count > mostVenueConcerts) {
+                mostVenueConcerts = count;
+                busiestVenue = venue;
+            }
+        }
+        // Keep track of the artist with the most concerts
+        Artist busiestArtist = null;
+        long mostArtistConcerts = 0;
+        // Check each artist and count how many concerts they are in
+        for (Artist artist : artistService.allArtists()) {
+
+            long count = concertService.concertCountByArtist(artist);
+            // Update artist with most concerts
+            if (count > mostArtistConcerts) {
+                mostArtistConcerts = count;
+                busiestArtist = artist;
+            }
+        }
+
+        System.out.println("=== Busiest Venue ===");
+
+        if (busiestVenue != null) {
+            System.out.println(busiestVenue.getName() + " (" + mostVenueConcerts + " concerts)");
+        } else {
+            System.out.println("No venue data available.");
+        }
+
+        System.out.println("\n=== Busiest Artist ===");
+
+        if (busiestArtist != null) {
+            System.out.println(busiestArtist.getName() + " (" + mostArtistConcerts + " concerts)");
+        } else {
+            System.out.println("No artist data available.");
+        }
+    }
+
+    public void averageTicketPriceByYear() {
+      // Keep track of years we've already reported on
+        List<Integer> years = new ArrayList<>();
+        // Go through every concert
+        for (Concert concert : concertService.allConcerts()) {
+
+            int year = concert.getYear();
+            // Skip years that have already been processed
+            if (years.contains(year)) {
+                continue;
+            }
+
+            double average = concertService.averageTicketPriceByYear(year);
+
+            System.out.printf("%d Average Ticket Price: $%,.2f%n", year, average);
+          //so year won't print again
+            years.add(year);
+        }
+    }
+
+    public void capacityReport() {
+
     }
 }
 

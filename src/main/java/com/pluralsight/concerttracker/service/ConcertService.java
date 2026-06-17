@@ -34,6 +34,14 @@ public class ConcertService {
         return concertRepository.count();
     }
 
+    public Long concertCountByVenue(Venue venue) {
+        return concertRepository.concertCountByVenue(venue);
+    }
+
+    public Long concertCountByArtist(Artist artist) {
+        return concertRepository.concertCountByArtist(artist);
+    }
+
     public List<Concert> allConcerts() {
         return concertRepository.findAll();
     }
@@ -71,7 +79,8 @@ public class ConcertService {
     }
 
     //reports methods
-    //non-primitive Double allows for additional error prevention by SQL
+
+    /// non-primitive Double allows for additional error prevention by SQL
     public Double revenueByVenue(Venue venue) {
 
         Double revenue = concertRepository.revenueByVenue(venue);
@@ -81,6 +90,17 @@ public class ConcertService {
         }
 
         return revenue;
+    }
+
+    public Double averageTicketPriceByYear(int year) {
+
+        Double average = concertRepository.averageTicketPriceByYear(year);
+
+        if (average == null) {
+            return 0.0;
+        }
+
+        return average;
     }
 
     /// can be used to add and update

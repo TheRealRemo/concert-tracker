@@ -1,5 +1,6 @@
 package com.pluralsight.concerttracker.data;
 
+import com.pluralsight.concerttracker.models.Artist;
 import com.pluralsight.concerttracker.models.Concert;
 import com.pluralsight.concerttracker.models.Venue;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,4 +34,13 @@ public interface ConcertRepository extends JpaRepository<Concert, Long> {
 
     @Query(" SELECT SUM(c.ticketPrice * c.ticketsSold) FROM Concert c WHERE c.venue = :venue")
     Double revenueByVenue(@Param("venue") Venue venue);
+
+    @Query("SELECT COUNT(c)FROM Concert c WHERE c.venue = :venue")
+    Long concertCountByVenue(@Param("venue") Venue venue);
+
+    @Query("SELECT COUNT(c)  FROM Concert c   WHERE c.artist = :artist")
+    Long concertCountByArtist(@Param("artist") Artist artist);
+
+    @Query("SELECT AVG(c.ticketPrice)FROM Concert c WHERE c.year = :year ")
+    Double averageTicketPriceByYear(@Param("year") int year);
 }
