@@ -416,7 +416,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 System.out.println("\n" + nfe.getMessage());
             }
         }
-
+        scanner.nextLine();
     }
 
     public void findVenueByCity(Scanner scanner) {
@@ -773,6 +773,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 System.out.println(e.getMessage());
             }
         }
+        scanner.nextLine();
     }
 
     public void addNewVenue(Scanner scanner) {
@@ -801,6 +802,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 System.out.println(e.getMessage());
             }
         }
+        scanner.nextLine();
     }
 
     public void addArtist(Scanner scanner) {
@@ -827,6 +829,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 System.out.println(e.getMessage());
             }
         }
+        scanner.nextLine();
     }
 
     public void addPromoter(Scanner scanner) {
@@ -850,6 +853,7 @@ public class ConcertUserInterface implements CommandLineRunner {
                 System.out.println(e.getMessage());
             }
         }
+        scanner.nextLine();
     }
 
     //update helper methods

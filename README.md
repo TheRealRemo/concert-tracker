@@ -66,10 +66,11 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 ## Demo
 
-Include screenshots or GIFs that show your application in action. Use tools
-like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of your application.
 
-![Application Screenshot](path/to/your/screenshot.png)
+
+![Application Screenshot](https://i.imgur.com/GyOpVs7.gif)
+![Application Screenshot](https://i.imgur.com/ZObpnlt.gif)
+
 
 ## Future Work
 
@@ -91,8 +92,11 @@ like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of you
 
 List resources such as tutorials, articles, or documentation that helped you during the project.
 
-- [Java Programming Tutorial](https://www.example.com)
-- [Effective Java](https://www.example.com)
+- [Raymond Maroun Concert Tracker Reference Guide](https://raymaroun.github.io/yearup-java-visuals/week-10/exercises/concert-tracker-workshop.html)
+- [Annotations & Query Reference](https://raymaroun.github.io/yearup-java-visuals/week-10/reference/annotations-reference.html)
+- [The Service Layer](https://raymaroun.github.io/yearup-java-visuals/week-10/visuals/15-service-layer.html)
+- [Exception Handling GTP Conversation](https://chatgpt.com/s/t_6a337d028fec8191b3e3a8b25ad84b2d)
+- [Exception Handling Proved Smart GPT Conversation](https://chatgpt.com/s/t_6a337da545588191a406d6cf0d1809dc)
 
 
 ## Thanks
